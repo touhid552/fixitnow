@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FixItNow — Premium Home Services Bangladesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════ */
+:root{
+  --ink:#0A0A0F;--ink2:#13131A;--ink3:#1C1C26;--ink4:#252532;
+  --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.12);
+  --lime:#C8F135;--lime2:#d9f85c;--limeDark:#9dbf1c;--limeGlow:rgba(200,241,53,.18);
+  --w100:#fff;--w80:rgba(255,255,255,.80);--w50:rgba(255,255,255,.50);
+  --w30:rgba(255,255,255,.30);--w10:rgba(255,255,255,.10);--w05:rgba(255,255,255,.05);
+  --green:#22c55e;--red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--ink);color:var(--w100);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:'Sora',sans-serif;cursor:pointer;border:none}
+
+/* PAGE SYSTEM */
+.page{display:none}
+.page.active{display:block}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════ */
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+.sec{padding:120px 0}
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;border-radius:100px;font-size:15px;font-weight:700;transition:all .25s var(--ease);cursor:pointer;white-space:nowrap;position:relative;overflow:hidden}
+.btn-lime{background:var(--lime);color:var(--ink);box-shadow:0 0 0 0 var(--limeGlow)}
+.btn-lime:hover{background:var(--lime2);transform:translateY(-2px);box-shadow:0 8px 40px var(--limeGlow)}
+.btn-ghost{background:transparent;border:1.5px solid var(--line2);color:var(--w80)}
+.btn-ghost:hover{border-color:var(--lime);color:var(--lime)}
+.btn-glass{background:var(--w10);backdrop-filter:blur(12px);border:1px solid var(--line2);color:var(--w100)}
+.btn-glass:hover{background:rgba(255,255,255,.16)}
+.btn-sm{padding:11px 22px;font-size:13px}
+.btn-lg{padding:19px 44px;font-size:17px}
+.btn-xl{padding:22px 52px;font-size:18px;letter-spacing:-.2px}
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(10,10,15,.92);backdrop-filter:blur(24px);border-color:var(--line)}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 40px;height:76px;display:flex;align-items:center;gap:8px}
+.logo{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:var(--w100);display:flex;align-items:center;gap:10px;letter-spacing:-.5px;cursor:pointer}
+.logo-dot{width:10px;height:10px;background:var(--lime);border-radius:50%}
+.logo span{color:var(--lime)}
+.navlinks{list-style:none;display:flex;align-items:center;gap:2px;margin-left:auto}
+.navlinks a,.navlinks button{font-size:14px;font-weight:500;padding:9px 16px;border-radius:10px;color:var(--w50);transition:all .2s;background:none;cursor:pointer;font-family:'Sora',sans-serif}
+.navlinks a:hover,.navlinks button:hover{color:var(--w100);background:var(--w05)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;margin-left:auto;cursor:pointer}
+.hamburger span{display:block;width:22px;height:2px;background:var(--w80);border-radius:2px;transition:all .25s}
+
+/* NAV USER MENU */
+.nav-user-menu{display:flex;align-items:center;gap:8px;margin-left:auto}
+.nav-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--lime),var(--lime2));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--ink);cursor:pointer}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-photo{position:absolute;inset:0}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 25%;filter:brightness(.28) saturate(.7)}
+.hero-photo::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='.05'/%3E%3C/svg%3E");opacity:.5}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(90deg, rgba(10,10,15,.97) 0%, rgba(10,10,15,.7) 55%, transparent 100%),linear-gradient(0deg, rgba(10,10,15,.9) 0%, transparent 50%)}
+.hero-body{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:140px 40px 100px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center}
+.htag{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:100px;background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.2);font-size:12px;font-weight:700;color:var(--lime);letter-spacing:.5px;text-transform:uppercase;margin-bottom:32px}
+.hdot{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.htitle{font-family:'Instrument Serif',serif;font-size:clamp(54px,7.5vw,108px);line-height:.93;letter-spacing:-3px;color:var(--w100);margin-bottom:28px;font-weight:400}
+.htitle i{color:var(--lime);font-style:italic}
+.hdesc{font-size:18px;color:var(--w50);line-height:1.8;max-width:520px;margin-bottom:44px;font-weight:300}
+.hbtns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:72px}
+.hstats{display:flex;align-items:center;gap:0}
+.hstat{padding:0 36px 0 0}
+.hstat strong{display:block;font-family:'Instrument Serif',serif;font-size:40px;color:var(--w100);line-height:1;margin-bottom:5px}
+.hstat strong i{color:var(--lime);font-style:normal}
+.hstat span{font-size:11px;color:var(--w30);letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+.hstat-bar{width:1px;height:44px;background:var(--line2);margin-right:36px}
+.hcard{background:rgba(19,19,26,.85);backdrop-filter:blur(30px);border:1px solid var(--line2);border-radius:28px;padding:28px;box-shadow:0 40px 100px rgba(0,0,0,.6);animation:cardFloat 6s ease-in-out infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.hcard-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--w30);margin-bottom:18px}
+.hcard-prov{display:flex;align-items:center;gap:14px;padding:16px;background:var(--w05);border-radius:16px;border:1px solid var(--line);margin-bottom:18px}
+.hcard-ava{width:50px;height:50px;border-radius:50%;overflow:hidden;border:2px solid var(--lime);flex-shrink:0}
+.hcard-ava img{width:100%;height:100%;object-fit:cover}
+.hcard-name{font-size:15px;font-weight:700;margin-bottom:3px}
+.hcard-role{font-size:12px;color:var(--w30)}
+.live-badge{margin-left:auto;padding:5px 12px;border-radius:100px;background:rgba(34,197,94,.15);color:#4ade80;font-size:10px;font-weight:800;border:1px solid rgba(34,197,94,.25);text-transform:uppercase;letter-spacing:1px}
+.hcard-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.hcard-row span{font-size:13px;color:var(--w30)}
+.hcard-row strong{font-size:14px;color:var(--lime);font-weight:700}
+.progress{height:5px;background:var(--w10);border-radius:100px;margin-bottom:20px}
+.progress-fill{height:100%;width:70%;border-radius:100px;background:linear-gradient(90deg,var(--lime),var(--lime2));box-shadow:0 0 12px rgba(200,241,53,.4)}
+.hcard-svcs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hcs{padding:12px 14px;border-radius:12px;background:var(--w05);border:1px solid var(--line);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;transition:.2s;cursor:default}
+.hcs:hover{border-color:var(--lime);color:var(--lime)}
+.hcs-ico{font-size:17px}
+
+/* TICKER */
+.ticker{background:var(--lime);padding:14px 0;overflow:hidden}
+.ticker-track{display:flex;animation:tick 18s linear infinite;white-space:nowrap}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{display:inline-flex;align-items:center;gap:16px;padding:0 44px;font-size:13px;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:1.5px}
+.tick-item::after{content:'✦';font-size:9px;opacity:.4}
+
+/* SERVICES */
+.services-sec{background:var(--ink2)}
+.sec-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--lime);margin-bottom:14px;display:block}
+.sec-title{font-family:'Instrument Serif',serif;font-size:clamp(38px,4.5vw,64px);line-height:1.0;letter-spacing:-1.5px;color:var(--w100);font-weight:400}
+.sec-title i{color:var(--lime);font-style:italic}
+.sec-sub{font-size:17px;color:var(--w50);line-height:1.75;font-weight:300;max-width:480px}
+.sec-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:60px;flex-wrap:wrap}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.svc-item{position:relative;overflow:hidden;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:all .4s var(--ease);cursor:pointer;display:block}
+.svc-item:nth-child(3n){border-right:none}
+.svc-item:nth-child(4),.svc-item:nth-child(5),.svc-item:nth-child(6){border-bottom:none}
+.svc-img{width:100%;height:220px;object-fit:cover;filter:brightness(.6) saturate(.8);transition:all .6s var(--ease);display:block}
+.svc-item:hover .svc-img{transform:scale(1.06);filter:brightness(.75) saturate(1)}
+.svc-body{padding:28px 30px 30px}
+.svc-n{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:10px;display:block}
+.svc-name{font-family:'Instrument Serif',serif;font-size:24px;color:var(--w100);margin-bottom:9px;font-weight:400}
+.svc-desc{font-size:13px;color:var(--w50);line-height:1.65;margin-bottom:20px}
+.svc-foot{display:flex;align-items:center;justify-content:space-between}
+.svc-price{font-size:18px;font-weight:800;color:var(--lime)}
+.svc-arr{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--w50);transition:all .3s var(--ease)}
+.svc-item:hover .svc-arr{background:var(--lime);border-color:var(--lime);color:var(--ink);transform:rotate(-45deg)}
+
+/* HOW IT WORKS */
+.how-sec{background:var(--ink)}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.how-visual{position:relative}
+.how-main{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:24px;filter:brightness(.7) saturate(.8);box-shadow:0 40px 80px rgba(0,0,0,.5)}
+.how-stat{position:absolute;top:40px;right:-28px;background:var(--ink3);border:1px solid var(--line2);border-radius:20px;padding:20px 24px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.how-stat strong{font-family:'Instrument Serif',serif;font-size:44px;color:var(--lime);display:block;line-height:1}
+.how-stat span{font-size:13px;color:var(--w50);margin-top:4px;display:block}
+.how-mini{position:absolute;bottom:36px;left:-28px;width:45%;aspect-ratio:1;object-fit:cover;border-radius:18px;border:3px solid var(--ink);box-shadow:0 24px 60px rgba(0,0,0,.5);filter:brightness(.7) saturate(.8)}
+.steps{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;align-items:flex-start;gap:24px;padding:28px 0;border-bottom:1px solid var(--line);transition:all .25s;cursor:default}
+.step-item:last-child{border-bottom:none}
+.step-item:hover{padding-left:6px}
+.step-num{font-family:'Instrument Serif',serif;font-size:52px;color:rgba(255,255,255,.06);line-height:1;flex-shrink:0;min-width:62px;transition:.25s}
+.step-item:hover .step-num{color:var(--lime)}
+.step-ico{width:46px;height:46px;background:var(--ink3);border:1px solid var(--line2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;transition:.25s}
+.step-item:hover .step-ico{background:rgba(200,241,53,.1);border-color:rgba(200,241,53,.3)}
+.step-h{font-size:18px;font-weight:700;color:var(--w100);margin-bottom:7px;letter-spacing:-.3px}
+.step-p{font-size:14px;color:var(--w50);line-height:1.7}
+
+/* PROVIDERS */
+.prov-sec{background:var(--ink2)}
+.prov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:40px}
+.prov-card{background:var(--ink3);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:all .35s var(--ease)}
+.prov-card:hover{border-color:rgba(200,241,53,.3);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.prov-photo{position:relative;aspect-ratio:3/4;overflow:hidden}
+.prov-photo img{width:100%;height:100%;object-fit:cover;object-position:top;transition:.6s var(--ease);filter:brightness(.75) saturate(.85)}
+.prov-card:hover .prov-photo img{transform:scale(1.05);filter:brightness(.85) saturate(1)}
+.prov-avail{position:absolute;top:12px;right:12px;padding:5px 12px;border-radius:100px;background:rgba(10,10,15,.75);backdrop-filter:blur(8px);border:1px solid var(--line2);font-size:11px;font-weight:700;display:flex;align-items:center;gap:6px}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+.prov-info{padding:18px 20px 20px}
+.prov-name{font-family:'Instrument Serif',serif;font-size:21px;font-weight:400;margin-bottom:3px}
+.prov-role{font-size:12px;color:var(--w30);font-weight:600;margin-bottom:10px;display:block}
+.prov-stars{color:var(--lime);font-size:13px;margin-bottom:14px}
+.prov-stars small{color:var(--w30);font-size:11px;margin-left:4px}
+.prov-book{width:100%;padding:12px;border-radius:12px;font-size:14px;font-weight:700;background:var(--lime);color:var(--ink);transition:.2s}
+.prov-book:hover{background:var(--lime2)}
+.join-wrap{background:var(--ink3);border:1px solid var(--line2);border-radius:24px;padding:52px 56px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
+.join-wrap::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(200,241,53,.12),transparent 70%)}
+.join-title{font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;letter-spacing:-.5px;margin-bottom:8px}
+.join-sub{font-size:15px;color:var(--w50)}
+
+/* TESTIMONIALS */
+.testi-sec{background:var(--ink)}
+.testi-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;margin-bottom:40px}
+.tc{background:var(--ink2);border:1px solid var(--line);border-radius:22px;padding:36px;transition:.3s}
+.tc:hover{border-color:var(--line2);background:var(--ink3)}
+.tc.big{background:var(--ink3);border-color:rgba(200,241,53,.15)}
+.tc-mark{font-family:'Instrument Serif',serif;font-size:80px;line-height:.5;color:var(--lime);opacity:.25;margin-bottom:8px}
+.tc-text{font-size:16px;color:var(--w80);line-height:1.8;font-weight:300;margin-bottom:28px}
+.tc-auth{display:flex;align-items:center;gap:12px}
+.tc-auth img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--line2)}
+.tc-name{font-size:15px;font-weight:700;display:block}
+.tc-loc{font-size:12px;color:var(--w30)}
+.tc-stars{margin-left:auto;color:var(--lime);font-size:13px}
+.rbox{background:var(--ink2);border:1px solid var(--line);border-radius:22px;padding:40px 48px;display:flex;align-items:center;gap:60px}
+.rb-big{text-align:center;flex-shrink:0}
+.rb-big strong{font-family:'Instrument Serif',serif;font-size:72px;color:var(--w100);display:block;line-height:1}
+.rb-big .rb-stars{color:var(--lime);font-size:22px;margin:6px 0}
+.rb-big small{font-size:13px;color:var(--w30)}
+.rb-bars{flex:1;display:flex;flex-direction:column;gap:10px}
+.rb-r{display:flex;align-items:center;gap:14px}
+.rb-r span:first-child{font-size:13px;color:var(--w50);min-width:24px}
+.rb-track{flex:1;height:7px;background:var(--w05);border-radius:100px;overflow:hidden}
+.rb-fill{height:100%;background:linear-gradient(90deg,var(--lime),var(--lime2));border-radius:100px}
+.rb-r span:last-child{font-size:12px;color:var(--w30);min-width:32px;text-align:right}
+
+/* CTA */
+.cta-sec{position:relative;padding:160px 0;overflow:hidden;text-align:center}
+.cta-bg{position:absolute;inset:0}
+.cta-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.18) saturate(.4)}
+.cta-ink{position:absolute;inset:0;background:rgba(10,10,15,.65)}
+.cta-body{position:relative;z-index:1}
+.cta-title{font-family:'Instrument Serif',serif;font-size:clamp(52px,7vw,96px);line-height:.95;letter-spacing:-3px;color:var(--w100);margin-bottom:22px;font-weight:400}
+.cta-title i{color:var(--lime);font-style:italic}
+.cta-sub{font-size:18px;color:var(--w50);margin-bottom:44px;font-weight:300}
+.cta-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+
+/* FOOTER */
+.footer{background:var(--ink2);border-top:1px solid var(--line);padding:80px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:60px}
+.fb-desc{font-size:14px;color:var(--w30);line-height:1.8;margin:16px 0 24px;font-weight:300}
+.socials{display:flex;gap:10px}
+.socials a{width:38px;height:38px;background:var(--w05);border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;transition:.2s}
+.socials a:hover{background:var(--lime);border-color:var(--lime)}
+.fc h5{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--w100);margin-bottom:20px}
+.fc a,.fc button{display:block;font-size:14px;color:var(--w30);margin-bottom:11px;transition:.2s;font-weight:400;background:none;border:none;padding:0;cursor:pointer;font-family:'Sora',sans-serif;text-align:left}
+.fc a:hover,.fc button:hover{color:var(--w100);padding-left:4px}
+.fbot{border-top:1px solid var(--line);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fbot span{font-size:13px;color:var(--w30)}
+.fbot-links{display:flex;gap:22px}
+.fbot-links a{font-size:13px;color:var(--w30);transition:.2s}
+.fbot-links a:hover{color:var(--w80)}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.show{opacity:1;transform:none}
+
+/* ═══════════════════════════════════════════════
+   LOGIN PAGE
+═══════════════════════════════════════════════ */
+.split{display:flex;min-height:100vh;width:100%}
+.split-photo{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:52px}
+.split-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.3) saturate(.7)}
+.sp-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,15,.98) 0%,rgba(10,10,15,.2) 60%)}
+.sp-content{position:relative;z-index:1}
+.sp-logo{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--w100);letter-spacing:-.4px;position:absolute;top:40px;left:52px;cursor:pointer}
+.sp-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:100px;background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.2);font-size:11px;font-weight:700;color:var(--lime);letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px}
+.sp-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:bl 1.8s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.sp-quote{font-family:'Instrument Serif',serif;font-size:30px;line-height:1.4;color:var(--w100);margin-bottom:14px;font-style:italic;font-weight:400}
+.sp-by{font-size:14px;color:var(--w30)}
+.split-form{width:520px;flex-shrink:0;background:var(--ink2);border-left:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:60px 52px}
+.form-box{width:100%;max-width:400px}
+.form-heading{font-family:'Instrument Serif',serif;font-size:40px;font-weight:400;letter-spacing:-.5px;margin-bottom:8px}
+.form-sub{font-size:15px;color:var(--w30);margin-bottom:36px;font-weight:300}
+.tabs{display:flex;gap:6px;background:var(--ink3);padding:5px;border-radius:12px;margin-bottom:28px}
+.tab{flex:1;padding:11px;border-radius:8px;text-align:center;font-size:13px;font-weight:700;color:var(--w30);background:none;border:none;cursor:pointer;transition:.2s;font-family:'Sora',sans-serif}
+.tab.on{background:var(--ink4);color:var(--w100)}
+.fg{margin-bottom:18px}
+.fl{display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px}
+.fi{width:100%;padding:15px 18px;background:var(--ink3);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none;transition:.25s}
+.fi:focus{border-color:var(--lime);box-shadow:0 0 0 3px rgba(200,241,53,.08)}
+.fi::placeholder{color:var(--w30)}
+.fr{display:flex;justify-content:flex-end;margin-bottom:24px}
+.fr a{font-size:13px;color:var(--lime);font-weight:600}
+.sbtn{width:100%;padding:16px;font-size:16px;font-weight:700;font-family:'Sora',sans-serif;background:var(--lime);color:var(--ink);border:none;border-radius:12px;cursor:pointer;transition:.2s;letter-spacing:-.2px}
+.sbtn:hover{background:var(--lime2);transform:translateY(-1px)}
+.form-alt{text-align:center;margin-top:22px;font-size:14px;color:var(--w30)}
+.form-alt a,.form-alt button{color:var(--lime);font-weight:700;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:14px}
+.demo{margin-top:24px;padding:18px;background:var(--ink3);border-radius:12px;border:1px dashed var(--line2);font-size:13px;color:var(--w30);line-height:1.85}
+.demo strong{color:var(--lime);display:block;margin-bottom:4px;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.alert{padding:13px 18px;border-radius:10px;font-size:14px;margin-bottom:20px;font-weight:500}
+.a-ok{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.a-er{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+
+/* ═══════════════════════════════════════════════
+   REGISTER PAGE
+═══════════════════════════════════════════════ */
+.reg-nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(10,10,15,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center;padding:0 40px;gap:12px}
+.reg-page{min-height:100vh;padding:100px 24px 60px;display:flex;align-items:flex-start;justify-content:center;background:var(--ink)}
+.card{background:var(--ink2);border:1px solid var(--line2);border-radius:24px;padding:48px;width:100%;max-width:540px;box-shadow:0 40px 80px rgba(0,0,0,.5)}
+.ch{font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;letter-spacing:-.5px;margin-bottom:6px}
+.cs{font-size:15px;color:var(--w30);margin-bottom:32px;font-weight:300}
+.card .fi{background:var(--ink3);border:1.5px solid var(--line2);border-radius:12px;padding:14px 18px}
+.card .sbtn{border-radius:12px;margin-top:8px}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sep{height:1px;background:var(--line);margin:20px 0}
+.prov-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:14px;display:block}
+.alt{text-align:center;margin-top:22px;font-size:14px;color:var(--w30)}
+.alt a,.alt button{color:var(--lime);font-weight:700;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:14px}
+.ck{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--w30);cursor:pointer;margin-bottom:4px}
+.ck input{accent-color:var(--lime);width:auto}
+
+/* ═══════════════════════════════════════════════
+   BOOKING PAGE
+═══════════════════════════════════════════════ */
+.bk-nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(10,10,15,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center;padding:0 40px;gap:12px}
+.bk-hero{background:var(--ink2);border-bottom:1px solid var(--line);padding:100px 40px 52px;text-align:center}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--lime);margin-bottom:14px;display:block}
+.bk-title{font-family:'Instrument Serif',serif;font-size:clamp(36px,5vw,60px);font-weight:400;letter-spacing:-1.5px;color:var(--w100);margin-bottom:12px}
+.bk-title i{color:var(--lime);font-style:italic}
+.bk-sub{font-size:16px;color:var(--w30);font-weight:300}
+.bk-wrap{max-width:860px;margin:0 auto;padding:52px 32px 80px}
+.sp-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:18px;display:block}
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px}
+.sp-card{background:var(--ink2);border:1.5px solid var(--line2);border-radius:18px;padding:22px 18px;text-align:center;cursor:pointer;transition:all .25s var(--ease)}
+.sp-card:hover{border-color:rgba(200,241,53,.3);background:var(--ink3)}
+.sp-card.sel{border-color:var(--lime);background:rgba(200,241,53,.06);box-shadow:0 0 0 1px var(--lime)}
+.sp-ico{font-size:30px;margin-bottom:10px}
+.sp-n{font-size:14px;font-weight:700;color:var(--w100);display:block;margin-bottom:4px}
+.sp-p{font-size:12px;color:var(--lime);font-weight:700}
+.step-sep{height:1px;background:var(--line);margin:32px 0;position:relative}
+.step-sep::before{content:attr(data-t);position:absolute;top:50%;left:0;transform:translateY(-50%);background:var(--ink);padding-right:16px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--w30)}
+.bk-wrap .fg{margin-bottom:18px}
+.bk-wrap .fl{display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px}
+.bk-wrap .fi{width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none;transition:.25s}
+.bk-wrap .fi:focus{border-color:var(--lime);box-shadow:0 0 0 3px rgba(200,241,53,.07)}
+.bk-wrap .fi::placeholder{color:rgba(255,255,255,.2)}
+.bk-wrap .fi option{background:var(--ink2)}
+.bk-wrap textarea.fi{resize:vertical;min-height:90px}
+.bk-wrap .fr2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sum-box{background:var(--ink2);border:1px solid var(--line2);border-radius:16px;padding:24px;margin-top:24px}
+.sum-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--w30);margin-bottom:18px}
+.sum-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--w50)}
+.sum-row:last-child{border:none;font-size:16px;font-weight:800;color:var(--w100);padding-top:16px}
+.sum-row:last-child span:last-child{color:var(--lime)}
+.conf-btn{width:100%;padding:18px;font-size:17px;font-weight:700;font-family:'Sora',sans-serif;background:var(--lime);color:var(--ink);border:none;border-radius:14px;cursor:pointer;transition:.2s;margin-top:24px;letter-spacing:-.2px}
+.conf-btn:hover{background:var(--lime2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,241,53,.25)}
+.conf-btn:disabled{background:var(--ink3);color:var(--w30);cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ═══════════════════════════════════════════════
+   DASHBOARD SHARED
+═══════════════════════════════════════════════ */
+.dash{display:flex;min-height:100vh}
+.sb{width:260px;flex-shrink:0;background:var(--ink2);border-right:1px solid var(--line);position:fixed;top:0;left:0;bottom:0;display:flex;flex-direction:column;z-index:100;transition:.3s}
+.sb-logo{padding:24px 20px;border-bottom:1px solid var(--line)}
+.sb-nav{flex:1;padding:14px 10px;overflow-y:auto}
+.sb-sec{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.2);padding:14px 12px 5px}
+.sb-a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:600;color:var(--w30);transition:.2s;margin-bottom:2px;cursor:pointer;border:none;background:none;font-family:'Sora',sans-serif;width:100%;text-align:left}
+.sb-a:hover{background:var(--w05);color:var(--w80)}
+.sb-a.on{background:rgba(200,241,53,.08);color:var(--lime);border:1px solid rgba(200,241,53,.12)}
+.sb-ico{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.sb-foot{padding:14px;border-top:1px solid var(--line)}
+.sb-user{display:flex;align-items:center;gap:12px;padding:12px 12px;border-radius:10px;cursor:pointer;transition:.2s}
+.sb-user:hover{background:var(--w05)}
+.sb-av{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--lime),var(--lime2));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--ink);flex-shrink:0;overflow:hidden}
+.sb-av img{width:100%;height:100%;object-fit:cover}
+.sb-n{font-size:13px;font-weight:700;color:var(--w100);display:block}
+.sb-r{font-size:11px;color:var(--w30)}
+.main{margin-left:260px;flex:1;min-height:100vh;background:var(--ink)}
+.topbar{background:var(--ink2);border-bottom:1px solid var(--line);padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.topbar h1{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;letter-spacing:-.5px}
+.topbar-r{display:flex;align-items:center;gap:10px}
+.nbtn{width:38px;height:38px;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;position:relative;transition:.2s}
+.nd{position:absolute;top:7px;right:7px;width:6px;height:6px;background:var(--lime);border-radius:50%;border:2px solid var(--ink2)}
+.tbtn{background:var(--lime);color:var(--ink);font-size:13px;font-weight:700;padding:9px 20px;border-radius:100px;cursor:pointer;border:none;font-family:'Sora',sans-serif;transition:.2s}
+.tbtn:hover{background:var(--lime2)}
+.content{padding:32px}
+.welcome{background:var(--ink2);border:1px solid var(--line2);border-radius:20px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;overflow:hidden;position:relative}
+.welcome::before{content:'';position:absolute;right:-40px;top:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(200,241,53,.08),transparent 70%)}
+.welcome-left{position:relative;z-index:1}
+.wl-label{font-size:12px;color:var(--w30);margin-bottom:6px;font-weight:500}
+.wl-name{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;color:var(--w100);margin-bottom:8px}
+.wl-sub{font-size:14px;color:var(--w30);margin-bottom:20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.sc{background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.25s}
+.sc:hover{border-color:var(--line2)}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.sc-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.ico-lime{background:rgba(200,241,53,.1)}.ico-g{background:rgba(34,197,94,.1)}.ico-b{background:rgba(59,130,246,.1)}.ico-a{background:rgba(245,158,11,.1)}
+.sc-trend{font-size:11px;font-weight:700;padding:3px 8px;border-radius:100px}
+.t-up{background:rgba(34,197,94,.1);color:#4ade80}
+.t-dn{background:rgba(239,68,68,.1);color:#f87171}
+.sc-lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:5px}
+.sc-val{font-family:'Instrument Serif',serif;font-size:34px;color:var(--w100);line-height:1;font-weight:400}
+.box{background:var(--ink2);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:20px}
+.box-h{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.box-h h3{font-family:'Instrument Serif',serif;font-size:19px;font-weight:400}
+table{width:100%;border-collapse:collapse}
+th{background:var(--ink3);padding:12px 18px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--w30)}
+td{padding:14px 18px;font-size:14px;border-bottom:1px solid var(--line);color:var(--w80);vertical-align:middle}
+tr:last-child td{border:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.b-g{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.b-y{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.b-r{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.b-b{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
+.b-x{background:var(--w05);color:var(--w30);border:1px solid var(--line)}
+.qb-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.qb{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:18px 10px;text-align:center;transition:.25s;display:block;cursor:pointer}
+.qb:hover{border-color:rgba(200,241,53,.3);transform:translateY(-3px)}
+.qb-ico{font-size:26px;margin-bottom:8px}
+.qb-n{font-size:12px;font-weight:700;color:var(--w80)}
+.dash-fg{margin-bottom:16px}
+.dash-fl{display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px}
+.dash-fi{width:100%;padding:13px 16px;background:var(--ink3);border:1.5px solid var(--line2);border-radius:10px;color:var(--w100);font-size:14px;font-family:'Sora',sans-serif;outline:none;transition:.25s}
+.dash-fi:focus{border-color:var(--lime)}
+.dash-fi::placeholder{color:rgba(255,255,255,.2)}
+.dash-sbtn{background:var(--lime);color:var(--ink);padding:13px 28px;border-radius:100px;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:'Sora',sans-serif;transition:.2s}
+.dash-sbtn:hover{background:var(--lime2)}
+.dsec{display:none}
+.dsec.active{display:block}
+/* Provider specific */
+.badge-pill{background:var(--lime);color:var(--ink);font-size:10px;font-weight:800;padding:2px 6px;border-radius:100px;margin-left:auto}
+.req-card{border:1px solid var(--line2);border-radius:14px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;transition:.2s}
+.req-card:hover{border-color:rgba(200,241,53,.2)}
+.req-info{flex:1}
+.req-svc{font-size:16px;font-weight:700;color:var(--w100);margin-bottom:4px}
+.req-meta{font-size:13px;color:var(--w30)}
+.rbtn{padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid;font-family:'Sora',sans-serif;transition:.2s}
+.rbtn-g{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:#4ade80}
+.rbtn-g:hover{background:rgba(34,197,94,.2)}
+.rbtn-r{background:transparent;border-color:var(--line2);color:var(--w30)}
+.rbtn-r:hover{border-color:rgba(239,68,68,.3);color:#f87171}
+.toggle{width:44px;height:24px;border-radius:100px;position:relative;cursor:pointer;transition:.25s;border:none}
+.toggle.on{background:var(--lime)}
+.toggle.off{background:var(--ink4)}
+.toggle::after{content:'';position:absolute;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.25s}
+.toggle.on::after{left:22px}
+.toggle.off::after{left:2px}
+.day-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
+.day-lbl{font-size:14px;font-weight:600;color:var(--w80)}
+/* Admin specific */
+.admin-tag{background:rgba(200,241,53,.1);color:var(--lime);font-size:12px;font-weight:700;padding:7px 14px;border-radius:100px;border:1px solid rgba(200,241,53,.2)}
+.g2{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;margin-bottom:20px}
+.rev-bar{display:flex;flex-direction:column;gap:12px;padding:20px 24px}
+.rb-row{display:flex;align-items:center;gap:12px}
+.rb-name{font-size:13px;color:var(--w80);min-width:120px;font-weight:500}
+.act-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.act-btn{padding:9px 18px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid;font-family:'Sora',sans-serif;transition:.2s}
+.ab-lime{background:rgba(200,241,53,.1);border-color:rgba(200,241,53,.3);color:var(--lime)}
+.ab-red{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25);color:#f87171}
+.tact{background:var(--ink3);border:1px solid var(--line2);color:var(--w80);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;transition:.2s;margin-right:4px}
+.tact:hover{border-color:var(--lime);color:var(--lime)}
+.tact-g{border-color:rgba(34,197,94,.3);color:#4ade80}
+.tact-g:hover{background:rgba(34,197,94,.1)}
+.tact-r{border-color:rgba(239,68,68,.3);color:#f87171}
+.tact-r:hover{background:rgba(239,68,68,.1)}
+.si{background:var(--ink3);border:1.5px solid var(--line2);border-radius:10px;color:var(--w100);font-size:14px;font-family:'Sora',sans-serif;padding:10px 16px;outline:none;transition:.2s}
+.si:focus{border-color:var(--lime)}
+.si::placeholder{color:var(--w30)}
+.ssel{background:var(--ink3);border:1px solid var(--line2);color:var(--w80);font-size:12px;font-family:'Sora',sans-serif;padding:6px 10px;border-radius:8px;outline:none;cursor:pointer}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media(max-width:1100px){
+  .hero-body{grid-template-columns:1fr;padding:130px 40px 80px}
+  .hcard{display:none}
+  .how-grid{grid-template-columns:1fr;gap:60px}
+  .prov-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-item:nth-child(3n){border-right:1px solid var(--line)}
+  .svc-item:nth-child(2n){border-right:none}
+  .svc-item:nth-child(4),.svc-item:nth-child(5),.svc-item:nth-child(6){border-bottom:1px solid var(--line)}
+  .svc-item:nth-child(5),.svc-item:nth-child(6){border-bottom:none}
+  .testi-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .join-wrap{flex-direction:column;text-align:center;padding:40px}
+  .rbox{flex-direction:column;gap:28px}
+}
+@media(max-width:900px){
+  .main{margin-left:0}.sb{transform:translateX(-100%)}.sb.open{transform:translateX(0)}
+  .stats{grid-template-columns:1fr 1fr}.qb-grid{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:1fr}
+  .split-photo{display:none}.split-form{width:100%;border:none}
+}
+@media(max-width:768px){
+  .wrap,.nav-in{padding-left:24px;padding-right:24px}
+  .sec{padding:80px 0}
+  .hero-body{padding:120px 24px 70px}
+  .htitle{letter-spacing:-2px}
+  .hbtns{flex-direction:column;align-items:flex-start}
+  .hstats{flex-wrap:wrap;gap:20px}
+  .hstat-bar{display:none}
+  .svc-grid{grid-template-columns:1fr;border-radius:18px}
+  .svc-item{border-right:none!important;border-bottom:1px solid var(--line)!important}
+  .svc-item:last-child{border-bottom:none!important}
+  .prov-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .navlinks{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(10,10,15,.97);backdrop-filter:blur(24px);flex-direction:column;padding:16px;border-bottom:1px solid var(--line);gap:2px}
+  .navlinks.open{display:flex}
+  .navlinks a,.navlinks button{color:var(--w80)!important;padding:13px 16px;border-radius:10px}
+  .hamburger{display:flex}
+  .how-stat{right:0}.how-mini{left:0}
+  .sp-grid{grid-template-columns:repeat(2,1fr)}
+  .bk-wrap .fr2{grid-template-columns:1fr}
+  .fr2{grid-template-columns:1fr}
+  .card{padding:28px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div>
+    <ul class="navlinks" id="nl">
+      <li><a href="#services" onclick="document.getElementById('nl').classList.remove('open')">Services</a></li>
+      <li><a href="#how" onclick="document.getElementById('nl').classList.remove('open')">Process</a></li>
+      <li><a href="#providers" onclick="document.getElementById('nl').classList.remove('open')">Experts</a></li>
+      <li><a href="#testi" onclick="document.getElementById('nl').classList.remove('open')">Reviews</a></li>
+      <li id="nav-signin-li"><button onclick="showPage('login')">Sign In</button></li>
+      <li id="nav-dash-li" style="display:none"><button id="nav-dash-btn" onclick="goDashboard()">My Dashboard</button></li>
+      <li><button class="btn btn-lime btn-sm" onclick="showPage('booking')">Book Now ↗</button></li>
+    </ul>
+    <button class="hamburger" id="hb" onclick="document.getElementById('nl').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=1800&q=85" alt="Technician"/>
+  </div>
+  <div class="hero-grad"></div>
+  <div class="hero-body">
+    <div>
+      <div class="htag"><span class="hdot"></span>500+ Verified Experts Available Now</div>
+      <h1 class="htitle">Your Home,<br>Expertly <i>Fixed.</i></h1>
+      <p class="hdesc">Book certified AC mechanics, electricians, plumbers & more. Trusted by 50,000+ Bangladeshi homes. Doorstep service in 60 minutes.</p>
+      <div class="hbtns">
+        <button class="btn btn-lime btn-xl" onclick="showPage('booking')">Book a Service Now ↗</button>
+        <a href="#services"><button class="btn btn-ghost btn-xl">Explore Services</button></a>
+      </div>
+      <div class="hstats">
+        <div class="hstat"><strong>50K<i>+</i></strong><span>Happy Customers</span></div>
+        <div class="hstat-bar"></div>
+        <div class="hstat"><strong>500<i>+</i></strong><span>Verified Experts</span></div>
+        <div class="hstat-bar"></div>
+        <div class="hstat"><strong>4.9<i>★</i></strong><span>Average Rating</span></div>
+        <div class="hstat-bar"></div>
+        <div class="hstat"><strong>60<i>min</i></strong><span>Avg. Arrival</span></div>
+      </div>
+    </div>
+    <div class="hcard">
+      <p class="hcard-tag">🟢 Live — Provider on the way</p>
+      <div class="hcard-prov">
+        <div class="hcard-ava"><img src="https://image2url.com/r2/default/images/1773312106388-c02fcc1e-b728-4fc9-8746-56f1b6c65e23.jpg" alt="Provider"/></div>
+        <div>
+          <div class="hcard-name">Rafiq Khan</div>
+          <div class="hcard-role">⚡ Senior Electrician · ⭐ 4.9</div>
+        </div>
+        <div class="live-badge">Live</div>
+      </div>
+      <div class="hcard-row"><span>📍 Estimated arrival</span><strong>12 min away</strong></div>
+      <div class="progress"><div class="progress-fill"></div></div>
+      <div class="hcard-svcs">
+        <div class="hcs"><span class="hcs-ico">🌬️</span>AC Repair</div>
+        <div class="hcs"><span class="hcs-ico">⚡</span>Electrician</div>
+        <div class="hcs"><span class="hcs-ico">🚿</span>Plumber</div>
+        <div class="hcs"><span class="hcs-ico">🔧</span>Mechanic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick-item">AC Repair & Servicing</span><span class="tick-item">Electrician</span>
+    <span class="tick-item">Plumbing Solutions</span><span class="tick-item">Carpentry</span>
+    <span class="tick-item">Painting</span><span class="tick-item">Mechanics</span>
+    <span class="tick-item">Home Cleaning</span><span class="tick-item">AC Repair & Servicing</span>
+    <span class="tick-item">Electrician</span><span class="tick-item">Plumbing Solutions</span>
+    <span class="tick-item">Carpentry</span><span class="tick-item">Painting</span>
+    <span class="tick-item">Mechanics</span><span class="tick-item">Home Cleaning</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec services-sec" id="services">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div>
+        <span class="sec-eyebrow">What We Offer</span>
+        <h2 class="sec-title">Every Service<br>Your Home <i>Needs</i></h2>
+      </div>
+      <div>
+        <p class="sec-sub">Professional solutions delivered by verified experts, with transparent pricing and 100% satisfaction guarantee.</p>
+        <br>
+        <button class="btn btn-ghost" onclick="showPage('booking')">All Services ↗</button>
+      </div>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-item rv" onclick="showBooking('ac')">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&q=80" alt="AC Repair"/>
+        <div class="svc-body"><span class="svc-n">01 · Most Popular</span><div class="svc-name">AC Repair & Servicing</div><div class="svc-desc">Installation, deep cleaning, gas refill & full repair for all brands.</div><div class="svc-foot"><span class="svc-price">From ৳800</span><div class="svc-arr">↗</div></div></div>
+      </div>
+      <div class="svc-item rv" onclick="showBooking('electric')">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=700&q=80" alt="Electrician"/>
+        <div class="svc-body"><span class="svc-n">02</span><div class="svc-name">Electrician</div><div class="svc-desc">Wiring, fan fitting, MCB, safety inspections & emergency repairs.</div><div class="svc-foot"><span class="svc-price">From ৳600</span><div class="svc-arr">↗</div></div></div>
+      </div>
+      <div class="svc-item rv" onclick="showBooking('mechanic')">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=700&q=80" alt="Mechanic"/>
+        <div class="svc-body"><span class="svc-n">03</span><div class="svc-name">Mechanic</div><div class="svc-desc">Car & appliance repair, engine check, oil change at your doorstep.</div><div class="svc-foot"><span class="svc-price">From ৳700</span><div class="svc-arr">↗</div></div></div>
+      </div>
+      <div class="svc-item rv" onclick="showBooking('plumber')">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=700&q=80" alt="Plumber"/>
+        <div class="svc-body"><span class="svc-n">04</span><div class="svc-name">Plumber</div><div class="svc-desc">Leaks, pipe fitting, water pump, drainage & bathroom installation.</div><div class="svc-foot"><span class="svc-price">From ৳500</span><div class="svc-arr">↗</div></div></div>
+      </div>
+      <div class="svc-item rv" onclick="showBooking('carpenter')">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1426927308491-6380b6a9936f?w=700&q=80" alt="Carpenter"/>
+        <div class="svc-body"><span class="svc-n">05</span><div class="svc-name">Carpenter</div><div class="svc-desc">Furniture assembly, door repairs, cabinets & custom woodwork.</div><div class="svc-foot"><span class="svc-price">From ৳900</span><div class="svc-arr">↗</div></div></div>
+      </div>
+      <div class="svc-item rv" onclick="showBooking('painter')">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=700&q=80" alt="Painter"/>
+        <div class="svc-body"><span class="svc-n">06</span><div class="svc-name">Painter</div><div class="svc-desc">Interior & exterior painting with premium finish and clean work.</div><div class="svc-foot"><span class="svc-price">From ৳1,200</span><div class="svc-arr">↗</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec how-sec" id="how">
+  <div class="wrap">
+    <div class="how-grid">
+      <div class="how-visual rv">
+        <img class="how-main" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85" alt="Technician working"/>
+        <div class="how-stat"><strong>98%</strong><span>Customer Satisfaction</span></div>
+        <img class="how-mini" src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=400&q=80" alt="Expert"/>
+      </div>
+      <div>
+        <span class="sec-eyebrow">How It Works</span>
+        <h2 class="sec-title" style="margin-bottom:16px">Fixed in<br><i>3 Simple</i> Steps</h2>
+        <p class="sec-sub" style="margin-bottom:48px">We've made booking a home professional as easy as ordering food online.</p>
+        <div class="steps">
+          <div class="step-item rv"><div class="step-num">01</div><div class="step-ico">📱</div><div><div class="step-h">Book Online in 60 Seconds</div><div class="step-p">Pick your service, set your address and time slot. Done from any device.</div></div></div>
+          <div class="step-item rv"><div class="step-num">02</div><div class="step-ico">🧑‍🔧</div><div><div class="step-h">Expert Arrives at Your Door</div><div class="step-p">A verified, background-checked professional reaches you right on time.</div></div></div>
+          <div class="step-item rv"><div class="step-num">03</div><div class="step-ico">✅</div><div><div class="step-h">Pay After. Rate the Work.</div><div class="step-p">Pay securely only after the job is done to your satisfaction.</div></div></div>
+        </div>
+        <div style="margin-top:40px">
+          <button class="btn btn-lime btn-lg" onclick="showPage('booking')">Book a Service →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVIDERS -->
+<section class="sec prov-sec" id="providers">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div>
+        <span class="sec-eyebrow">Our Experts</span>
+        <h2 class="sec-title">Top-Rated<br><i>Professionals</i></h2>
+      </div>
+      <p class="sec-sub">All providers are verified, insured & background-checked before joining our platform.</p>
+    </div>
+    <div class="prov-grid">
+      <div class="prov-card rv">
+        <div class="prov-photo"><img src="https://image2url.com/r2/default/images/1773312106388-c02fcc1e-b728-4fc9-8746-56f1b6c65e23.jpg" alt="Rafiq"/><div class="prov-avail"><span class="avail-dot"></span>Available</div></div>
+        <div class="prov-info"><div class="prov-name">Rafiq Khan</div><span class="prov-role">⚡ Electrician</span><div class="prov-stars">★★★★★ <small>4.9 · 218 jobs</small></div><button class="prov-book" onclick="showPage('booking')">Book Now →</button></div>
+      </div>
+      <div class="prov-card rv">
+        <div class="prov-photo"><img src="https://image2url.com/r2/default/images/1773311956164-661ff00d-043f-405a-9929-26324411d744.jpg" alt="Sohel"/><div class="prov-avail"><span class="avail-dot"></span>Available</div></div>
+        <div class="prov-info"><div class="prov-name">Sohel Mahmud</div><span class="prov-role">🌬️ AC Mechanic</span><div class="prov-stars">★★★★★ <small>4.8 · 305 jobs</small></div><button class="prov-book" onclick="showPage('booking')">Book Now →</button></div>
+      </div>
+      <div class="prov-card rv">
+        <div class="prov-photo"><img src="https://image2url.com/r2/default/images/1773311987900-e7d453b4-89b1-4e6f-bb27-4d0ff66d2745.jpg" alt="Touhid"/><div class="prov-avail" style="color:#fbbf24;border-color:rgba(245,158,11,.2)"><span class="avail-dot" style="background:var(--amber)"></span>Busy Soon</div></div>
+        <div class="prov-info"><div class="prov-name">Touhid Hasan</div><span class="prov-role">🚿 Plumber</span><div class="prov-stars">★★★★☆ <small>4.7 · 189 jobs</small></div><button class="prov-book" style="background:var(--ink4);color:var(--w80)" onclick="showPage('booking')">Book Now →</button></div>
+      </div>
+      <div class="prov-card rv">
+        <div class="prov-photo"><img src="https://image2url.com/r2/default/images/1773311830965-dfda1817-3b78-4a65-90e5-a882434bb4e5.jpg" alt="Tanny"/><div class="prov-avail"><span class="avail-dot"></span>Available</div></div>
+        <div class="prov-info"><div class="prov-name">Nadia Akter</div><span class="prov-role">🎨 Painter</span><div class="prov-stars">★★★★★ <small>5.0 · 97 jobs</small></div><button class="prov-book" onclick="showPage('booking')">Book Now →</button></div>
+      </div>
+    </div>
+    <div class="join-wrap rv">
+      <div>
+        <div class="join-title">Are You a Skilled Professional?</div>
+        <div class="join-sub">Join 500+ providers earning ৳30,000–৳80,000/month on FixItNow.</div>
+      </div>
+      <button class="btn btn-lime btn-lg" onclick="showRegister('provider')">Join as Provider ↗</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec testi-sec" id="testi">
+  <div class="wrap">
+    <div class="sec-hd"><div><span class="sec-eyebrow">Customer Stories</span><h2 class="sec-title">They Trust<br><i>FixItNow</i></h2></div></div>
+    <div class="testi-grid">
+      <div class="tc big rv"><div class="tc-mark">"</div><p class="tc-text">The electrician arrived in 45 minutes and fixed our entire wiring in under 2 hours. Incredibly professional and reasonably priced. Best home service in Bangladesh.</p><div class="tc-auth"><img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=80&q=80" alt="Karim"/><div><span class="tc-name">Karim Ahmed</span><span class="tc-loc">Dhaka, Mirpur</span></div><div class="tc-stars">★★★★★</div></div></div>
+      <div class="tc rv"><div class="tc-mark">"</div><p class="tc-text">My AC broke on the hottest day of the year. Sohel arrived fast and had it running perfectly in an hour. Absolute lifesaver!</p><div class="tc-auth"><img src="https://image2url.com/r2/default/images/1773312843541-285e8866-ed92-4c6e-94dd-63bd4383d0e6.jpg" alt="Fatema"/><div><span class="tc-name">Fatema Begum</span><span class="tc-loc">Dhaka, Gulshan</span></div><div class="tc-stars">★★★★★</div></div></div>
+      <div class="tc rv"><div class="tc-mark">"</div><p class="tc-text">Transparent pricing, clean work, right on time. FixItNow completely changed how I handle home maintenance.</p><div class="tc-auth"><img src="https://image2url.com/r2/default/images/1773312888069-c5a502c8-6fe2-459a-b1c3-c44dcff1750f.jpg" alt="Omar"/><div><span class="tc-name">Omar Faruk</span><span class="tc-loc">Dhaka, Dhanmondi</span></div><div class="tc-stars">★★★★★</div></div></div>
+    </div>
+    <div class="rbox rv">
+      <div class="rb-big"><strong>4.9</strong><div class="rb-stars">★★★★★</div><small>12,480 reviews</small></div>
+      <div class="rb-bars">
+        <div class="rb-r"><span>5★</span><div class="rb-track"><div class="rb-fill" style="width:88%"></div></div><span>88%</span></div>
+        <div class="rb-r"><span>4★</span><div class="rb-track"><div class="rb-fill" style="width:9%"></div></div><span>9%</span></div>
+        <div class="rb-r"><span>3★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span>2%</span></div>
+        <div class="rb-r"><span>2★</span><div class="rb-track"><div class="rb-fill" style="width:1%"></div></div><span>1%</span></div>
+        <div class="rb-r"><span>1★</span><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><span>0%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="cta-bg"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80" alt="Home"/></div>
+  <div class="cta-ink"></div>
+  <div class="cta-body wrap">
+    <h2 class="cta-title">Ready to Fix<br>Your <i>Home?</i></h2>
+    <p class="cta-sub">Join 50,000+ homeowners who trust FixItNow.</p>
+    <div class="cta-btns">
+      <button class="btn btn-lime btn-xl" onclick="showPage('booking')">Book a Service Now ↗</button>
+      <button class="btn btn-ghost btn-xl" onclick="showRegister('provider')">Become a Provider</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div>
+        <p class="fb-desc">Bangladesh's most trusted home service platform. Connecting homes with verified professionals since 2024.</p>
+        <div class="socials"><a href="#">📘</a><a href="#">📸</a><a href="#">▶️</a><a href="#">💬</a></div>
+      </div>
+      <div class="fc">
+        <h5>Services</h5>
+        <button onclick="showBooking('ac')">AC Repair</button>
+        <button onclick="showBooking('electric')">Electrician</button>
+        <button onclick="showBooking('mechanic')">Mechanic</button>
+        <button onclick="showBooking('plumber')">Plumber</button>
+        <button onclick="showBooking('carpenter')">Carpenter</button>
+        <button onclick="showBooking('painter')">Painter</button>
+      </div>
+      <div class="fc">
+        <h5>Company</h5>
+        <a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Contact</a>
+      </div>
+      <div class="fc">
+        <h5>Account</h5>
+        <button onclick="showPage('login')">Sign In</button>
+        <button onclick="showPage('register')">Register</button>
+        <button onclick="showPage('dashboard-user')">My Bookings</button>
+        <button onclick="showRegister('provider')">Become Provider</button>
+        <button onclick="showPage('dashboard-admin')">Admin Panel</button>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2024 FixItNow. All rights reserved.</span>
+      <div class="fbot-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Refunds</a></div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- end page-home -->
+
+<!-- ══════════════════════════════════════════
+     PAGE: LOGIN
+══════════════════════════════════════════ -->
+<div id="page-login" class="page">
+<div class="split">
+  <div class="split-photo">
+    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=900&q=85" alt="Pro"/>
+    <div class="sp-overlay"></div>
+    <div class="sp-logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div>
+    <div class="sp-content">
+      <div class="sp-badge"><span class="sp-dot"></span>Trusted by 50,000+ homes</div>
+      <div class="sp-quote">"FixItNow fixed my AC in 45 minutes — I'm a customer for life."</div>
+      <div class="sp-by">— Fatema Begum, Dhaka</div>
+    </div>
+  </div>
+  <div class="split-form">
+    <div class="form-box">
+      <div class="logo" onclick="showPage('home')" style="margin-bottom:40px"><div class="logo-dot"></div>FixIt<span>Now</span></div>
+      <h1 class="form-heading">Welcome back</h1>
+      <p class="form-sub">Sign in to your account to continue</p>
+      <div id="login-alert"></div>
+      <div class="tabs">
+        <button class="tab on" onclick="setLoginRole('user',this)">👤 Customer</button>
+        <button class="tab" onclick="setLoginRole('provider',this)">🔧 Provider</button>
+        <button class="tab" onclick="setLoginRole('admin',this)">🛡️ Admin</button>
+      </div>
+      <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" id="login-em" placeholder="you@example.com" required/></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" type="password" id="login-pw" placeholder="Enter your password" required/></div>
+      <div class="fr"><a href="#">Forgot password?</a></div>
+      <button class="sbtn" onclick="doLogin()">Sign In →</button>
+      <p class="form-alt">No account? <button onclick="showPage('register')">Create one free →</button></p>
+      <div class="demo">
+        <strong>🔑 Demo Logins</strong>
+        Customer: user@demo.com / pass123<br>
+        Provider: provider@demo.com / pass123<br>
+        Admin: admin@demo.com / pass123
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- end page-login -->
+
+<!-- ══════════════════════════════════════════
+     PAGE: REGISTER
+══════════════════════════════════════════ -->
+<div id="page-register" class="page">
+<nav class="reg-nav">
+  <div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div>
+  <div style="margin-left:auto"><button onclick="showPage('login')" style="font-size:14px;color:var(--w50);font-weight:600;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif">Already have an account? <span style="color:var(--lime)">Sign in →</span></button></div>
+</nav>
+<div class="reg-page">
+  <div class="card">
+    <h1 class="ch">Create Account ✨</h1>
+    <p class="cs">Join FixItNow as a customer or service provider</p>
+    <div id="reg-alert"></div>
+    <div class="tabs">
+      <button class="tab on" id="reg-tab-user" onclick="setRegRole('user',this)">👤 I Need Services</button>
+      <button class="tab" id="reg-tab-provider" onclick="setRegRole('provider',this)">🔧 I'm a Provider</button>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">First Name</label><input class="fi" id="reg-fn" placeholder="Karim" required/></div>
+      <div class="fg"><label class="fl">Last Name</label><input class="fi" id="reg-ln" placeholder="Ahmed" required/></div>
+    </div>
+    <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" id="reg-em" placeholder="you@example.com" required/></div>
+    <div class="fg"><label class="fl">Phone Number</label><input class="fi" id="reg-ph" placeholder="+880 1700 000000" required/></div>
+    <div class="fg"><label class="fl">Password</label><input class="fi" type="password" id="reg-pw" placeholder="Minimum 6 characters" required/></div>
+    <div id="reg-provFields" style="display:none">
+      <div class="sep"></div>
+      <span class="prov-label">🔧 Provider Details</span>
+      <div class="fg"><label class="fl">Your Specialty</label>
+        <select class="fi" id="reg-sp"><option value="">Select your main skill</option><option>AC Mechanic</option><option>Electrician</option><option>Plumber</option><option>Carpenter</option><option>Painter</option><option>General Mechanic</option></select>
+      </div>
+      <div class="fr2">
+        <div class="fg"><label class="fl">Experience (years)</label><input class="fi" type="number" id="reg-ex" placeholder="e.g. 5" min="0"/></div>
+        <div class="fg"><label class="fl">Service Area</label><input class="fi" id="reg-ar" placeholder="e.g. Mirpur, Dhaka"/></div>
+      </div>
+      <div class="fg"><label class="fl">Short Bio</label><textarea class="fi" id="reg-bi" rows="3" placeholder="Tell customers about your skills..."></textarea></div>
+    </div>
+    <div style="margin-top:8px;margin-bottom:4px">
+      <label class="ck"><input type="checkbox" id="reg-terms" required/>I agree to the <a href="#" style="color:var(--lime)">Terms of Service</a> & <a href="#" style="color:var(--lime)">Privacy Policy</a></label>
+    </div>
+    <button class="sbtn" onclick="doRegister()">Create Account →</button>
+    <p class="alt">Already have an account? <button onclick="showPage('login')">Sign in →</button></p>
+  </div>
+</div>
+</div><!-- end page-register -->
+
+<!-- ══════════════════════════════════════════
+     PAGE: BOOKING
+══════════════════════════════════════════ -->
+<div id="page-booking" class="page">
+<nav class="bk-nav">
+  <div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div>
+  <div style="margin-left:auto;display:flex;gap:10px">
+    <button onclick="showPage('dashboard-user')" style="font-size:14px;color:var(--w30);font-weight:600;padding:9px 16px;border-radius:10px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif">My Bookings</button>
+    <button onclick="showPage('login')" style="background:var(--lime);color:var(--ink);font-size:13px;font-weight:700;padding:9px 20px;border-radius:100px;border:none;cursor:pointer;font-family:'Sora',sans-serif" id="bk-signin-btn">Sign In</button>
+  </div>
+</nav>
+<div class="bk-hero">
+  <span class="eyebrow">Book a Service</span>
+  <h1 class="bk-title">Schedule Your <i>Expert Visit</i></h1>
+  <p class="bk-sub">Choose a service, pick a time — we'll send the best expert to your door</p>
+</div>
+<div class="bk-wrap">
+  <div id="bk-alert"></div>
+  <span class="sp-label">Step 1 — Choose a Service</span>
+  <div class="sp-grid" id="spGrid">
+    <div class="sp-card" onclick="bkPick('AC Repair',800,this)"><div class="sp-ico">🌬️</div><span class="sp-n">AC Repair</span><span class="sp-p">From ৳800</span></div>
+    <div class="sp-card" onclick="bkPick('Electrician',600,this)"><div class="sp-ico">⚡</div><span class="sp-n">Electrician</span><span class="sp-p">From ৳600</span></div>
+    <div class="sp-card" onclick="bkPick('Mechanic',700,this)"><div class="sp-ico">🔧</div><span class="sp-n">Mechanic</span><span class="sp-p">From ৳700</span></div>
+    <div class="sp-card" onclick="bkPick('Plumber',500,this)"><div class="sp-ico">🚿</div><span class="sp-n">Plumber</span><span class="sp-p">From ৳500</span></div>
+    <div class="sp-card" onclick="bkPick('Carpenter',900,this)"><div class="sp-ico">🪚</div><span class="sp-n">Carpenter</span><span class="sp-p">From ৳900</span></div>
+    <div class="sp-card" onclick="bkPick('Painter',1200,this)"><div class="sp-ico">🎨</div><span class="sp-n">Painter</span><span class="sp-p">From ৳1,200</span></div>
+  </div>
+  <div class="step-sep" data-t="Step 2 — Schedule & Details"></div>
+  <div class="bk-wrap-form">
+    <div class="bk-wrap .fr2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="bk-wrap .fg" style="margin-bottom:18px"><label class="bk-wrap .fl" style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px">Preferred Date</label><input style="width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none;transition:.25s" type="date" id="bk-dt"/></div>
+      <div style="margin-bottom:18px"><label style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px">Time Slot</label>
+        <select style="width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none" id="bk-tm">
+          <option value="">Select time...</option>
+          <option>08:00 AM – 10:00 AM</option><option>10:00 AM – 12:00 PM</option>
+          <option>12:00 PM – 02:00 PM</option><option>02:00 PM – 04:00 PM</option>
+          <option>04:00 PM – 06:00 PM</option><option>06:00 PM – 08:00 PM</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:18px"><label style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px">Service Address</label><input style="width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none;transition:.25s" id="bk-ad" placeholder="House no., Road, Area, City"/></div>
+    <div style="margin-bottom:18px"><label style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px">Describe the Problem <span style="color:var(--w30);font-size:10px;font-weight:400;letter-spacing:0;text-transform:none">(optional)</span></label>
+      <textarea style="width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none;resize:vertical;min-height:90px" id="bk-is" placeholder="e.g. AC is not cooling, makes a loud noise..."></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px">
+      <div><label style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px">Your Name</label><input style="width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none" id="bk-nm" placeholder="Full name"/></div>
+      <div><label style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px">Contact Phone</label><input style="width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none" id="bk-ph" placeholder="+880 1700 000000"/></div>
+    </div>
+    <div style="margin-bottom:18px"><label style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--w30);margin-bottom:8px">Preferred Provider <span style="color:var(--w30);font-size:10px;font-weight:400;letter-spacing:0;text-transform:none">(optional)</span></label>
+      <select style="width:100%;padding:14px 18px;background:var(--ink2);border:1.5px solid var(--line2);border-radius:12px;color:var(--w100);font-size:15px;font-family:'Sora',sans-serif;outline:none" id="bk-pv">
+        <option value="">Auto-assign best available</option>
+        <option>Rafiq Khan — Electrician ⭐ 4.9</option>
+        <option>Sohel Mahmud — AC Mechanic ⭐ 4.8</option>
+        <option>Touhid Hasan — Plumber ⭐ 4.7</option>
+        <option>Nadia Akter — Painter ⭐ 5.0</option>
+      </select>
+    </div>
+    <div class="sum-box" id="bk-sumBox" style="display:none">
+      <div class="sum-title">📋 Order Summary</div>
+      <div class="sum-row"><span>Service</span><span id="bk-sS">—</span></div>
+      <div class="sum-row"><span>Date & Time</span><span id="bk-sDT">—</span></div>
+      <div class="sum-row"><span>Service Fee</span><span id="bk-sF">—</span></div>
+      <div class="sum-row"><span>Visit Charge</span><span>৳100</span></div>
+      <div class="sum-row"><span>Total Estimate</span><span id="bk-sT">—</span></div>
+    </div>
+    <button class="conf-btn" id="bk-confBtn" disabled onclick="doBooking()">Select a service above to continue</button>
+  </div>
+</div>
+</div><!-- end page-booking -->
+
+<!-- ══════════════════════════════════════════
+     PAGE: DASHBOARD USER
+══════════════════════════════════════════ -->
+<div id="page-dashboard-user" class="page">
+<div class="dash">
+<aside class="sb" id="user-sb">
+  <div class="sb-logo"><div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sec">Menu</div>
+    <button class="sb-a on" onclick="userGo('overview',this)"><span class="sb-ico">🏠</span>Dashboard</button>
+    <button class="sb-a" onclick="userGo('bookings',this)"><span class="sb-ico">📋</span>My Bookings</button>
+    <button class="sb-a" onclick="showPage('booking')"><span class="sb-ico">➕</span>New Booking</button>
+    <button class="sb-a" onclick="userGo('services',this)"><span class="sb-ico">🔧</span>Browse Services</button>
+    <div class="sb-sec">Account</div>
+    <button class="sb-a" onclick="userGo('profile',this)"><span class="sb-ico">👤</span>My Profile</button>
+    <button class="sb-a" onclick="doLogout()"><span class="sb-ico">🚪</span>Logout</button>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-user">
+      <div class="sb-av" id="u-sbAv">U</div>
+      <div><span class="sb-n" id="u-sbNm">User</span><span class="sb-r">Customer</span></div>
+    </div>
+  </div>
+</aside>
+<div class="main">
+  <div class="topbar">
+    <h1 id="u-pageH">Dashboard</h1>
+    <div class="topbar-r">
+      <button class="nbtn">🔔<span class="nd"></span></button>
+      <button class="tbtn" onclick="showPage('booking')">+ Book Service</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="dsec active" id="u-sec-overview">
+      <div class="welcome">
+        <div class="welcome-left">
+          <div class="wl-label">👋 Good day!</div>
+          <div class="wl-name" id="u-wName">Welcome back</div>
+          <div class="wl-sub">What would you like to fix today?</div>
+          <button class="dash-sbtn" onclick="showPage('booking')">Book a Service →</button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=320&q=70" style="width:200px;height:140px;object-fit:cover;border-radius:14px;opacity:.4;flex-shrink:0" alt=""/>
+      </div>
+      <div class="stats">
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-lime">📋</div><span class="sc-trend t-up" id="u-tr1">↑ 0</span></div><div class="sc-lbl">Total Bookings</div><div class="sc-val" id="u-sv1">0</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-g">✅</div></div><div class="sc-lbl">Completed</div><div class="sc-val" id="u-sv2">0</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-a">⏳</div></div><div class="sc-lbl">Pending</div><div class="sc-val" id="u-sv3">0</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-b">💰</div></div><div class="sc-lbl">Total Spent</div><div class="sc-val" id="u-sv4">৳0</div></div>
+      </div>
+      <div class="box">
+        <div class="box-h"><h3>Recent Bookings</h3><button class="tbtn" onclick="showPage('booking')">+ New</button></div>
+        <div style="overflow-x:auto"><table><thead><tr><th>Booking ID</th><th>Service</th><th>Date</th><th>Provider</th><th>Amount</th><th>Status</th><th></th></tr></thead><tbody id="u-tRec"></tbody></table></div>
+      </div>
+      <div>
+        <div style="font-family:'Instrument Serif',serif;font-size:20px;margin-bottom:16px">Quick Book</div>
+        <div class="qb-grid">
+          <div class="qb" onclick="showBooking('ac')"><div class="qb-ico">🌬️</div><div class="qb-n">AC Repair</div></div>
+          <div class="qb" onclick="showBooking('electric')"><div class="qb-ico">⚡</div><div class="qb-n">Electrician</div></div>
+          <div class="qb" onclick="showBooking('mechanic')"><div class="qb-ico">🔧</div><div class="qb-n">Mechanic</div></div>
+          <div class="qb" onclick="showBooking('plumber')"><div class="qb-ico">🚿</div><div class="qb-n">Plumber</div></div>
+          <div class="qb" onclick="showBooking('carpenter')"><div class="qb-ico">🪚</div><div class="qb-n">Carpenter</div></div>
+          <div class="qb" onclick="showBooking('painter')"><div class="qb-ico">🎨</div><div class="qb-n">Painter</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="dsec" id="u-sec-bookings">
+      <div class="box">
+        <div class="box-h"><h3>All My Bookings</h3><button class="tbtn" onclick="showPage('booking')">+ New</button></div>
+        <div style="overflow-x:auto"><table><thead><tr><th>ID</th><th>Service</th><th>Date</th><th>Time</th><th>Address</th><th>Amount</th><th>Status</th></tr></thead><tbody id="u-tAll"></tbody></table></div>
+      </div>
+    </div>
+    <div class="dsec" id="u-sec-services">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px">
+        <div onclick="showBooking('ac')" style="background:var(--ink2);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.25s;cursor:pointer" onmouseover="this.style.borderColor='rgba(200,241,53,.3)'" onmouseout="this.style.borderColor='var(--line)'"><img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&q=80" style="width:100%;height:160px;object-fit:cover;filter:brightness(.7)"/><div style="padding:18px"><div style="font-size:20px;margin-bottom:6px">🌬️</div><div style="font-size:16px;font-weight:700;margin-bottom:4px">AC Repair</div><div style="font-size:13px;color:var(--w30);margin-bottom:10px">Full service & repair</div><div style="font-size:15px;font-weight:800;color:var(--lime)">From ৳800</div></div></div>
+        <div onclick="showBooking('electric')" style="background:var(--ink2);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.25s;cursor:pointer" onmouseover="this.style.borderColor='rgba(200,241,53,.3)'" onmouseout="this.style.borderColor='var(--line)'"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80" style="width:100%;height:160px;object-fit:cover;filter:brightness(.7)"/><div style="padding:18px"><div style="font-size:20px;margin-bottom:6px">⚡</div><div style="font-size:16px;font-weight:700;margin-bottom:4px">Electrician</div><div style="font-size:13px;color:var(--w30);margin-bottom:10px">Wiring & repairs</div><div style="font-size:15px;font-weight:800;color:var(--lime)">From ৳600</div></div></div>
+        <div onclick="showBooking('plumber')" style="background:var(--ink2);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.25s;cursor:pointer" onmouseover="this.style.borderColor='rgba(200,241,53,.3)'" onmouseout="this.style.borderColor='var(--line)'"><img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80" style="width:100%;height:160px;object-fit:cover;filter:brightness(.7)"/><div style="padding:18px"><div style="font-size:20px;margin-bottom:6px">🚿</div><div style="font-size:16px;font-weight:700;margin-bottom:4px">Plumber</div><div style="font-size:13px;color:var(--w30);margin-bottom:10px">Pipes & drainage</div><div style="font-size:15px;font-weight:800;color:var(--lime)">From ৳500</div></div></div>
+      </div>
+    </div>
+    <div class="dsec" id="u-sec-profile">
+      <div class="box" style="max-width:520px">
+        <div class="box-h"><h3>My Profile</h3></div>
+        <div style="padding:28px">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px">
+            <div class="sb-av" style="width:64px;height:64px;font-size:22px;border-radius:16px" id="u-pAv">U</div>
+            <div><div style="font-size:18px;font-weight:700" id="u-pNm">User</div><div style="font-size:13px;color:var(--w30)">Customer Account</div></div>
+          </div>
+          <div class="dash-fg"><label class="dash-fl">Full Name</label><input class="dash-fi" id="u-pN"/></div>
+          <div class="dash-fg"><label class="dash-fl">Email</label><input class="dash-fi" type="email" id="u-pE"/></div>
+          <div class="dash-fg"><label class="dash-fl">Phone</label><input class="dash-fi" id="u-pP" placeholder="+880 1700 000000"/></div>
+          <div class="dash-fg"><label class="dash-fl">Default Address</label><input class="dash-fi" id="u-pA" placeholder="Your home address"/></div>
+          <button class="dash-sbtn" onclick="userSavePro()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div><!-- end page-dashboard-user -->
+
+<!-- ══════════════════════════════════════════
+     PAGE: DASHBOARD PROVIDER
+══════════════════════════════════════════ -->
+<div id="page-dashboard-provider" class="page">
+<div class="dash">
+<aside class="sb">
+  <div class="sb-logo"><div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sec">Provider Menu</div>
+    <button class="sb-a on" onclick="provGo('overview',this)"><span class="sb-ico">📊</span>Overview</button>
+    <button class="sb-a" onclick="provGo('requests',this)"><span class="sb-ico">🔔</span>New Requests <span class="badge-pill">3</span></button>
+    <button class="sb-a" onclick="provGo('jobs',this)"><span class="sb-ico">🔧</span>My Jobs</button>
+    <button class="sb-a" onclick="provGo('earnings',this)"><span class="sb-ico">💰</span>Earnings</button>
+    <button class="sb-a" onclick="provGo('availability',this)"><span class="sb-ico">🗓️</span>Availability</button>
+    <div class="sb-sec">Account</div>
+    <button class="sb-a" onclick="provGo('profile',this)"><span class="sb-ico">👤</span>My Profile</button>
+    <button class="sb-a" onclick="doLogout()"><span class="sb-ico">🚪</span>Logout</button>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-user">
+      <div class="sb-av"><img src="https://image2url.com/r2/default/images/1773312106388-c02fcc1e-b728-4fc9-8746-56f1b6c65e23.jpg" alt="Provider"/></div>
+      <div><span class="sb-n">Sohel Mahmud</span><span class="sb-r">🌬️ AC Mechanic</span></div>
+    </div>
+  </div>
+</aside>
+<div class="main">
+  <div class="topbar">
+    <h1 id="prov-pageH">Provider Overview</h1>
+    <div class="topbar-r">
+      <span style="font-size:13px;color:var(--w30);font-weight:600">Status:</span>
+      <button id="prov-statusBtn" onclick="provToggleStatus()" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#4ade80;padding:8px 16px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;transition:.2s">🟢 Available</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="dsec active" id="prov-sec-overview">
+      <div style="background:var(--ink2);border:1px solid var(--line2);border-radius:20px;padding:28px 32px;display:flex;align-items:center;gap:20px;margin-bottom:24px;overflow:hidden;position:relative">
+        <div style="position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(200,241,53,.07),transparent 70%)"></div>
+        <img src="https://image2url.com/r2/default/images/1773312106388-c02fcc1e-b728-4fc9-8746-56f1b6c65e23.jpghttps://image2url.com/r2/default/images/1773312106388-c02fcc1e-b728-4fc9-8746-56f1b6c65e23.jpg" style="width:60px;height:60px;border-radius:16px;object-fit:cover;flex-shrink:0"/>
+        <div style="flex:1;position:relative;z-index:1"><div style="font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;margin-bottom:4px">Sohel Mahmud</div><div style="font-size:13px;color:var(--w30)">🌬️ AC Mechanic · ⭐ 4.8 · Mirpur, Dhaka</div></div>
+        <div style="background:var(--ink3);border:1px solid var(--line2);border-radius:14px;padding:14px 20px;text-align:right;flex-shrink:0;position:relative;z-index:1"><div style="font-family:'Instrument Serif',serif;font-size:28px;color:var(--lime);font-weight:400">৳38,400</div><div style="font-size:11px;color:var(--w30);margin-top:3px">Total Earned</div></div>
+      </div>
+      <div class="stats">
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-g">✅</div><span class="sc-trend t-up">↑ 12</span></div><div class="sc-lbl">Jobs Done</div><div class="sc-val">47</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-a">⏳</div></div><div class="sc-lbl">Pending</div><div class="sc-val">3</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-lime">💰</div><span class="sc-trend t-up">↑ ৳6.2K</span></div><div class="sc-lbl">This Month</div><div class="sc-val">৳6,200</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-a">⭐</div></div><div class="sc-lbl">Rating</div><div class="sc-val">4.8</div></div>
+      </div>
+      <div class="box" style="margin-bottom:20px"><div class="box-h"><h3>🔔 Incoming Requests</h3><span class="badge b-y">3 new</span></div><div style="padding:16px;display:grid;gap:10px" id="prov-reqList"></div></div>
+      <div class="box"><div class="box-h"><h3>Recent Jobs</h3></div><table><thead><tr><th>ID</th><th>Service</th><th>Customer</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="prov-jobsT"></tbody></table></div>
+    </div>
+    <div class="dsec" id="prov-sec-requests"><div class="box"><div class="box-h"><h3>All Incoming Requests</h3></div><div style="padding:16px;display:grid;gap:10px" id="prov-allReqs"></div></div></div>
+    <div class="dsec" id="prov-sec-jobs"><div class="box"><div class="box-h"><h3>All My Jobs</h3></div><table><thead><tr><th>ID</th><th>Service</th><th>Date</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead><tbody><tr><td><code style="color:var(--lime)">BK001</code></td><td>AC Repair</td><td>Jan 10</td><td>Karim Ahmed</td><td style="color:var(--lime);font-weight:700">৳800</td><td><span class="badge b-g">Completed</span></td></tr><tr><td><code style="color:var(--lime)">BK002</code></td><td>AC Servicing</td><td>Jan 12</td><td>Rina Parvin</td><td style="color:var(--lime);font-weight:700">৳600</td><td><span class="badge b-g">Completed</span></td></tr><tr><td><code style="color:var(--lime)">BK003</code></td><td>AC Repair</td><td>Jan 15</td><td>Jamal Hossain</td><td style="color:var(--lime);font-weight:700">৳800</td><td><span class="badge b-b">In Progress</span></td></tr></tbody></table></div></div>
+    <div class="dsec" id="prov-sec-earnings"><div class="stats"><div class="sc"><div class="sc-lbl">This Week</div><div class="sc-val">৳4,800</div></div><div class="sc"><div class="sc-lbl">This Month</div><div class="sc-val">৳6,200</div></div><div class="sc"><div class="sc-lbl">Total Earned</div><div class="sc-val">৳38,400</div></div><div class="sc"><div class="sc-lbl">Withdrawable</div><div class="sc-val">৳5,600</div></div></div><div class="box"><div class="box-h"><h3>Earnings History</h3></div><table><thead><tr><th>Job ID</th><th>Service</th><th>Date</th><th>Gross</th><th>Fee (10%)</th><th>Net Earned</th></tr></thead><tbody><tr><td>BK001</td><td>AC Repair</td><td>Jan 10</td><td>৳800</td><td>৳80</td><td style="font-weight:700;color:var(--lime)">৳720</td></tr><tr><td>BK002</td><td>AC Servicing</td><td>Jan 12</td><td>৳600</td><td>৳60</td><td style="font-weight:700;color:var(--lime)">৳540</td></tr></tbody></table></div></div>
+    <div class="dsec" id="prov-sec-availability"><div class="box" style="max-width:500px"><div class="box-h"><h3>Weekly Schedule</h3></div><div style="padding:20px" id="prov-dayList"></div><div style="padding:0 20px 20px"><button class="dash-sbtn" onclick="alert('✅ Schedule saved!')">Save Schedule</button></div></div></div>
+    <div class="dsec" id="prov-sec-profile"><div class="box" style="max-width:540px"><div class="box-h"><h3>Provider Profile</h3></div><div style="padding:28px"><div style="display:flex;align-items:center;gap:16px;margin-bottom:28px"><img src="" style="width:64px;height:64px;border-radius:16px;object-fit:cover"/><div><div style="font-size:18px;font-weight:700">Sohel Mahmud</div><div style="font-size:13px;color:var(--w30)">AC Mechanic · ⭐ 4.8</div></div></div><div class="dash-fg"><label class="dash-fl">Full Name</label><input class="dash-fi" value="Sohel Mahmud"/></div><div class="dash-fg"><label class="dash-fl">Specialty</label><select class="dash-fi"><option>AC Mechanic</option><option>Electrician</option><option>Plumber</option></select></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px"><div class="dash-fg"><label class="dash-fl">Experience</label><input class="dash-fi" type="number" value="8"/></div><div class="dash-fg"><label class="dash-fl">Hourly Rate (৳)</label><input class="dash-fi" type="number" value="800"/></div></div><div class="dash-fg"><label class="dash-fl">Service Area</label><input class="dash-fi" value="Mirpur, Dhaka"/></div><div class="dash-fg"><label class="dash-fl">Bio</label><textarea class="dash-fi" style="min-height:80px;resize:vertical">Certified AC technician with 8+ years of experience.</textarea></div><button class="dash-sbtn">Save Profile</button></div></div></div>
+  </div>
+</div>
+</div>
+</div><!-- end page-dashboard-provider -->
+
+<!-- ══════════════════════════════════════════
+     PAGE: DASHBOARD ADMIN
+══════════════════════════════════════════ -->
+<div id="page-dashboard-admin" class="page">
+<div class="dash">
+<aside class="sb">
+  <div class="sb-logo"><div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>FixIt<span>Now</span></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sec">Control Panel</div>
+    <button class="sb-a on" onclick="adminGo('overview',this)"><span class="sb-ico">📊</span>Overview</button>
+    <button class="sb-a" onclick="adminGo('bookings',this)"><span class="sb-ico">📋</span>All Bookings</button>
+    <button class="sb-a" onclick="adminGo('users',this)"><span class="sb-ico">👥</span>Users</button>
+    <button class="sb-a" onclick="adminGo('providers',this)"><span class="sb-ico">🧑‍🔧</span>Providers <span class="badge-pill">3</span></button>
+    <button class="sb-a" onclick="adminGo('services',this)"><span class="sb-ico">🛠️</span>Services</button>
+    <button class="sb-a" onclick="adminGo('finance',this)"><span class="sb-ico">💰</span>Finance</button>
+    <div class="sb-sec">Settings</div>
+    <button class="sb-a" onclick="adminGo('settings',this)"><span class="sb-ico">⚙️</span>Settings</button>
+    <button class="sb-a" onclick="doLogout()"><span class="sb-ico">🚪</span>Logout</button>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-user">
+      <div class="sb-av" style="background:var(--lime);color:var(--ink)">AD</div>
+      <div><span class="sb-n">Admin</span><span class="sb-r">🛡️ Super Admin</span></div>
+    </div>
+  </div>
+</aside>
+<div class="main">
+  <div class="topbar">
+    <h1 id="admin-pageH">Admin Overview</h1>
+    <div class="topbar-r">
+      <button class="nbtn">🔔<span class="nd"></span></button>
+      <div class="admin-tag">🛡️ Admin Access</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="dsec active" id="admin-sec-overview">
+      <div class="stats">
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-lime">📋</div><span class="sc-trend t-up">↑ 48 today</span></div><div class="sc-lbl">Total Bookings</div><div class="sc-val">1,284</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-b">👥</div><span class="sc-trend t-up">↑ 12 today</span></div><div class="sc-lbl">Registered Users</div><div class="sc-val">3,842</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-g">🧑‍🔧</div><span class="sc-trend t-up">↑ 3 new</span></div><div class="sc-lbl">Active Providers</div><div class="sc-val">512</div></div>
+        <div class="sc"><div class="sc-top"><div class="sc-ico ico-a">💰</div><span class="sc-trend t-up">↑ ৳8.2K</span></div><div class="sc-lbl">Platform Revenue</div><div class="sc-val">৳92.4K</div></div>
+      </div>
+      <div class="act-bar">
+        <button class="act-btn ab-lime" onclick="adminGo('providers',null)">⏳ 3 Providers Pending Approval</button>
+        <button class="act-btn ab-red" onclick="adminGo('bookings',null)">🔴 5 Disputed Bookings</button>
+      </div>
+      <div class="g2">
+        <div class="box"><div class="box-h"><h3>Recent Bookings</h3><select class="ssel" onchange="adminFilterBk(this.value)"><option value="all">All Status</option><option>Pending</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select></div><table><thead><tr><th>ID</th><th>Service</th><th>User</th><th>Amount</th><th>Status</th><th>Update</th></tr></thead><tbody id="admin-tBk"></tbody></table></div>
+        <div class="box"><div class="box-h"><h3>Revenue by Service</h3></div><div class="rev-bar" id="admin-revChart"></div></div>
+      </div>
+      <div class="box"><div class="box-h"><h3>🕐 Pending Provider Approvals</h3><span class="badge b-y">3 pending</span></div><table><thead><tr><th>Name</th><th>Specialty</th><th>Area</th><th>Experience</th><th>Applied</th><th>Actions</th></tr></thead><tbody id="admin-tPend"></tbody></table></div>
+    </div>
+    <div class="dsec" id="admin-sec-bookings"><div class="box"><div class="box-h"><h3>All Bookings</h3><input class="si" placeholder="Search by ID, user..." oninput="adminSearchBk(this.value)" style="width:220px"/></div><table><thead><tr><th>ID</th><th>Service</th><th>User</th><th>Provider</th><th>Date</th><th>Amount</th><th>Status</th><th>Update</th></tr></thead><tbody id="admin-tAllBk"></tbody></table></div></div>
+    <div class="dsec" id="admin-sec-users"><div class="box"><div class="box-h"><h3>Registered Users</h3><span style="font-size:13px;color:var(--w30)">3,842 total</span></div><table><thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Bookings</th><th>Spent</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td style="display:flex;align-items:center;gap:10px"><img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=40&q=80" style="width:32px;height:32px;border-radius:50%;object-fit:cover"/><b>Karim Ahmed</b></td><td style="color:var(--w30)">karim@demo.com</td><td>Jan 1</td><td>5</td><td style="color:var(--lime);font-weight:700">৳4,200</td><td><span class="badge b-g">Active</span></td><td><button class="tact tact-r">Suspend</button></td></tr><tr><td style="display:flex;align-items:center;gap:10px"><img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=40&q=80" style="width:32px;height:32px;border-radius:50%;object-fit:cover"/><b>Fatema Begum</b></td><td style="color:var(--w30)">fatema@demo.com</td><td>Jan 5</td><td>3</td><td style="color:var(--lime);font-weight:700">৳1,900</td><td><span class="badge b-g">Active</span></td><td><button class="tact tact-r">Suspend</button></td></tr></tbody></table></div></div>
+    <div class="dsec" id="admin-sec-providers"><div class="box"><div class="box-h"><h3>All Providers</h3><button class="tbtn">+ Add Provider</button></div><table><thead><tr><th>Provider</th><th>Specialty</th><th>Area</th><th>Jobs</th><th>Rating</th><th>Earnings</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td style="display:flex;align-items:center;gap:10px"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&q=80" style="width:32px;height:32px;border-radius:50%;object-fit:cover"/><b>Rafiq Khan</b></td><td>⚡ Electrician</td><td>Dhanmondi</td><td>63</td><td style="color:var(--lime)">⭐ 4.9</td><td style="color:var(--lime);font-weight:700">৳50,400</td><td><span class="badge b-g">Active</span></td><td><button class="tact">View</button><button class="tact tact-r">Suspend</button></td></tr><tr><td style="display:flex;align-items:center;gap:10px"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&q=80" style="width:32px;height:32px;border-radius:50%;object-fit:cover"/><b>Sohel Mahmud</b></td><td>🌬️ AC Mechanic</td><td>Mirpur</td><td>47</td><td style="color:var(--lime)">⭐ 4.8</td><td style="color:var(--lime);font-weight:700">৳38,400</td><td><span class="badge b-g">Active</span></td><td><button class="tact">View</button><button class="tact tact-r">Suspend</button></td></tr><tr><td style="display:flex;align-items:center;gap:10px"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&q=80" style="width:32px;height:32px;border-radius:50%;object-fit:cover"/><b>Nadia Akter</b></td><td>🎨 Painter</td><td>Uttara</td><td>22</td><td style="color:var(--lime)">⭐ 5.0</td><td style="color:var(--lime);font-weight:700">৳26,400</td><td><span class="badge b-y">Pending</span></td><td><button class="tact tact-g" onclick="this.closest('tr').cells[6].innerHTML='<span class=\'badge b-g\'>Active</span>';this.remove()">Approve</button><button class="tact tact-r">Reject</button></td></tr></tbody></table></div></div>
+    <div class="dsec" id="admin-sec-services"><div class="box"><div class="box-h"><h3>Manage Services</h3><button class="tbtn">+ Add Service</button></div><table><thead><tr><th>Service</th><th>Base Price</th><th>Providers</th><th>Bookings</th><th>Revenue</th><th>Status</th><th>Toggle</th></tr></thead><tbody id="admin-tSvc"></tbody></table></div></div>
+    <div class="dsec" id="admin-sec-finance"><div class="stats"><div class="sc"><div class="sc-lbl">Today</div><div class="sc-val">৳8,400</div></div><div class="sc"><div class="sc-lbl">This Month</div><div class="sc-val">৳92,400</div></div><div class="sc"><div class="sc-lbl">Total Revenue</div><div class="sc-val">৳8.24L</div></div><div class="sc"><div class="sc-lbl">Provider Payouts</div><div class="sc-val">৳7.41L</div></div></div><div class="box"><div class="box-h"><h3>Revenue by Service</h3></div><div class="rev-bar" id="admin-revChart2"></div></div></div>
+    <div class="dsec" id="admin-sec-settings"><div class="box" style="max-width:560px"><div class="box-h"><h3>Platform Settings</h3></div><div style="padding:28px;display:grid;gap:16px"><div class="dash-fg"><label class="dash-fl">Platform Commission (%)</label><input class="dash-fi" type="number" value="10"/></div><div class="dash-fg"><label class="dash-fl">Default Currency</label><select class="dash-fi"><option>BDT (৳)</option><option>USD ($)</option></select></div><div class="dash-fg"><label class="dash-fl">Provider Approval</label><select class="dash-fi"><option>Require Manual Review</option><option>Auto-Approve</option></select></div><div class="dash-fg"><label class="dash-fl">Cancellation Window (hours)</label><input class="dash-fi" type="number" value="2"/></div><div class="dash-fg"><label class="dash-fl">Support Email</label><input class="dash-fi" type="email" value="support@fixitnow.com"/></div><button class="dash-sbtn" onclick="alert('✅ Settings saved!')">Save Settings</button></div></div></div>
+  </div>
+</div>
+</div>
+</div><!-- end page-dashboard-admin -->
+
+<script>
+// ═══════════════════════════════════════════════
+//  PAGE ROUTER
+// ═══════════════════════════════════════════════
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg){
+    pg.classList.add('active');
+    window.scrollTo(0,0);
+    if(name==='dashboard-user') initUserDash();
+    if(name==='dashboard-provider') initProvDash();
+    if(name==='dashboard-admin') initAdminDash();
+    if(name==='register') initRegister();
+  }
+}
+
+function showBooking(svc){
+  showPage('booking');
+  const sm={ac:'AC Repair',electric:'Electrician',mechanic:'Mechanic',plumber:'Plumber',carpenter:'Carpenter',painter:'Painter'};
+  const pm={'AC Repair':800,'Electrician':600,'Mechanic':700,'Plumber':500,'Carpenter':900,'Painter':1200};
+  if(svc&&sm[svc]){
+    const name=sm[svc];
+    const el=[...document.querySelectorAll('.sp-card')].find(e=>e.querySelector('.sp-n').textContent===name);
+    if(el) bkPick(name,pm[name],el);
+  }
+}
+
+function showRegister(role){
+  showPage('register');
+  if(role==='provider'){
+    const tab=document.getElementById('reg-tab-provider');
+    if(tab) setRegRole('provider',tab);
+  }
+}
+
+function goDashboard(){
+  const usr=JSON.parse(localStorage.getItem('fin_user')||'{}');
+  if(usr.role==='admin') showPage('dashboard-admin');
+  else if(usr.role==='provider') showPage('dashboard-provider');
+  else showPage('dashboard-user');
+}
+
+// Update nav based on login state
+function updateNav(){
+  const usr=JSON.parse(localStorage.getItem('fin_user')||'null');
+  const signInLi=document.getElementById('nav-signin-li');
+  const dashLi=document.getElementById('nav-dash-li');
+  const dashBtn=document.getElementById('nav-dash-btn');
+  if(usr&&usr.name){
+    if(signInLi) signInLi.style.display='none';
+    if(dashLi) dashLi.style.display='';
+    if(dashBtn) dashBtn.textContent=usr.name.split(' ')[0]+' ↗';
+  } else {
+    if(signInLi) signInLi.style.display='';
+    if(dashLi) dashLi.style.display='none';
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  AUTH
+// ═══════════════════════════════════════════════
+let loginRole='user';
+function setLoginRole(r,el){
+  loginRole=r;
+  document.querySelectorAll('#page-login .tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function doLogin(){
+  const em=document.getElementById('login-em').value;
+  const pw=document.getElementById('login-pw').value;
+  const db={
+    'user@demo.com':{p:'pass123',r:'user',n:'Demo User'},
+    'provider@demo.com':{p:'pass123',r:'provider',n:'Sohel Mahmud'},
+    'admin@demo.com':{p:'pass123',r:'admin',n:'Admin'}
+  };
+  const u=db[em];
+  const el=document.getElementById('login-alert');
+  if(u&&u.p===pw){
+    const userData={name:u.n,email:em,role:u.r};
+    localStorage.setItem('fin_user',JSON.stringify(userData));
+    el.innerHTML='<div class="alert a-ok">✅ Welcome back, '+u.n+'! Redirecting...</div>';
+    updateNav();
+    setTimeout(()=>{
+      if(u.r==='admin') showPage('dashboard-admin');
+      else if(u.r==='provider') showPage('dashboard-provider');
+      else showPage('dashboard-user');
+    },1000);
+  } else {
+    el.innerHTML='<div class="alert a-er">❌ Invalid email or password. Try the demo credentials below.</div>';
+  }
+}
+
+let regRole='user';
+function setRegRole(r,el){
+  regRole=r;
+  document.querySelectorAll('#page-register .tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('reg-provFields').style.display=r==='provider'?'block':'none';
+}
+
+function initRegister(){
+  // Role pre-set handled by showRegister()
+}
+
+function doRegister(){
+  const fn=document.getElementById('reg-fn').value;
+  const ln=document.getElementById('reg-ln').value;
+  const em=document.getElementById('reg-em').value;
+  const pw=document.getElementById('reg-pw').value;
+  const terms=document.getElementById('reg-terms').checked;
+  const al=document.getElementById('reg-alert');
+  if(!fn||!ln||!em||!pw){al.innerHTML='<div class="alert a-er">Please fill in all required fields.</div>';return}
+  if(pw.length<6){al.innerHTML='<div class="alert a-er">Password must be at least 6 characters.</div>';return}
+  if(!terms){al.innerHTML='<div class="alert a-er">Please accept the Terms of Service.</div>';return}
+  const userData={name:(fn+' '+ln).trim(),email:em,role:regRole};
+  localStorage.setItem('fin_user',JSON.stringify(userData));
+  al.innerHTML='<div class="alert a-ok">🎉 Account created! Redirecting...</div>';
+  updateNav();
+  setTimeout(()=>{
+    if(regRole==='provider') showPage('dashboard-provider');
+    else showPage('dashboard-user');
+  },1200);
+}
+
+function doLogout(){
+  localStorage.removeItem('fin_user');
+  updateNav();
+  showPage('home');
+}
+
+// ═══════════════════════════════════════════════
+//  BOOKING
+// ═══════════════════════════════════════════════
+let bkSvc='',bkPrice=0;
+document.addEventListener('DOMContentLoaded',()=>{
+  const dtEl=document.getElementById('bk-dt');
+  if(dtEl) dtEl.min=new Date().toISOString().split('T')[0];
+});
+
+function bkPick(n,p,el){
+  document.querySelectorAll('.sp-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');bkSvc=n;bkPrice=p;bkUpdate();
+  const btn=document.getElementById('bk-confBtn');
+  btn.disabled=false;btn.textContent='Confirm Booking — '+n+' ৳'+(p+100)+' →';
+}
+
+function bkUpdate(){
+  const d=document.getElementById('bk-dt')?.value,t=document.getElementById('bk-tm')?.value;
+  document.getElementById('bk-sS').textContent=bkSvc||'—';
+  document.getElementById('bk-sDT').textContent=d&&t?d+' · '+t:(d||'—');
+  document.getElementById('bk-sF').textContent=bkPrice?'৳'+bkPrice:'—';
+  document.getElementById('bk-sT').textContent=bkPrice?'৳'+(bkPrice+100):'—';
+  document.getElementById('bk-sumBox').style.display=bkSvc?'block':'none';
+}
+
+function doBooking(){
+  if(!bkSvc){document.getElementById('bk-alert').innerHTML='<div class="alert a-er">Please select a service.</div>';return}
+  const dt=document.getElementById('bk-dt').value;
+  const tm=document.getElementById('bk-tm').value;
+  const ad=document.getElementById('bk-ad').value;
+  const nm=document.getElementById('bk-nm').value;
+  const ph=document.getElementById('bk-ph').value;
+  if(!dt||!tm||!ad||!nm||!ph){document.getElementById('bk-alert').innerHTML='<div class="alert a-er">Please fill in all required fields.</div>';return}
+  const bks=JSON.parse(localStorage.getItem('fin_bookings')||'[]');
+  const b={id:'BK'+Date.now().toString().slice(-6),service:bkSvc,date:dt,time:tm,address:ad,issue:document.getElementById('bk-is').value,name:nm,phone:ph,provider:document.getElementById('bk-pv').value||'Auto-assigned',amount:bkPrice+100,status:'Pending',createdAt:new Date().toISOString()};
+  bks.push(b);localStorage.setItem('fin_bookings',JSON.stringify(bks));
+  window.scrollTo(0,0);
+  document.getElementById('bk-alert').innerHTML='<div class="alert a-ok">✅ Booking <strong>#'+b.id+'</strong> confirmed! <button onclick="showPage(\'dashboard-user\')" style="color:#4ade80;font-weight:700;margin-left:6px;background:none;border:none;cursor:pointer;font-family:\'Sora\',sans-serif">View bookings →</button></div>';
+  document.querySelectorAll('.sp-card').forEach(c=>c.classList.remove('sel'));
+  bkSvc='';bkPrice=0;document.getElementById('bk-sumBox').style.display='none';
+  const btn=document.getElementById('bk-confBtn');btn.disabled=true;btn.textContent='Select a service above to continue';
+  ['bk-dt','bk-tm','bk-ad','bk-is','bk-nm','bk-ph'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('bk-pv').value='';
+}
+
+['bk-dt','bk-tm'].forEach(id=>{
+  setTimeout(()=>{const el=document.getElementById(id);if(el)el.addEventListener('change',bkUpdate);},100);
+});
+
+// ═══════════════════════════════════════════════
+//  USER DASHBOARD
+// ═══════════════════════════════════════════════
+function initUserDash(){
+  const usr=JSON.parse(localStorage.getItem('fin_user')||'{"name":"User"}');
+  document.getElementById('u-sbNm').textContent=usr.name||'User';
+  document.getElementById('u-sbAv').textContent=(usr.name||'U')[0].toUpperCase();
+  document.getElementById('u-wName').textContent='Welcome back, '+(usr.name||'User').split(' ')[0]+' 👋';
+  document.getElementById('u-pNm').textContent=usr.name||'User';
+  document.getElementById('u-pAv').textContent=(usr.name||'U')[0].toUpperCase();
+  document.getElementById('u-pN').value=usr.name||'';
+  document.getElementById('u-pE').value=usr.email||'';
+  userLoadData();
+}
+
+function bBadge(s){const m={Completed:'b-g','In Progress':'b-b',Pending:'b-y',Cancelled:'b-r'};return'<span class="badge '+(m[s]||'b-x')+'">'+s+'</span>'}
+
+function userLoadData(){
+  const bks=JSON.parse(localStorage.getItem('fin_bookings')||'[]');
+  document.getElementById('u-sv1').textContent=bks.length;
+  document.getElementById('u-sv2').textContent=bks.filter(b=>b.status==='Completed').length;
+  document.getElementById('u-sv3').textContent=bks.filter(b=>b.status==='Pending').length;
+  document.getElementById('u-sv4').textContent='৳'+bks.filter(b=>b.status!=='Cancelled').reduce((a,b)=>a+(b.amount||0),0).toLocaleString();
+  document.getElementById('u-tr1').textContent='↑ '+bks.length;
+  const rec=[...bks].reverse().slice(0,5);
+  document.getElementById('u-tRec').innerHTML=rec.length?rec.map(b=>'<tr><td><code style="color:var(--lime);font-size:11px">#'+b.id+'</code></td><td><b>'+b.service+'</b></td><td>'+(b.date||'—')+'</td><td style="font-size:13px;color:var(--w50)">'+b.provider+'</td><td style="font-weight:700">৳'+(b.amount||0)+'</td><td>'+bBadge(b.status)+'</td><td><button style="background:none;border:none;color:var(--red);cursor:pointer;font-size:12px;font-weight:700" onclick="userCancel(\''+b.id+'\')">Cancel</button></td></tr>').join(''):'<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--w30)">No bookings yet. <button onclick="showPage(\'booking\')" style="color:var(--lime);font-weight:700;background:none;border:none;cursor:pointer;font-family:\'Sora\',sans-serif">Book your first service →</button></td></tr>';
+  document.getElementById('u-tAll').innerHTML=[...bks].reverse().map(b=>'<tr><td><code style="color:var(--lime);font-size:11px">#'+b.id+'</code></td><td><b>'+b.service+'</b></td><td>'+(b.date||'—')+'</td><td style="font-size:13px;color:var(--w50)">'+(b.time||'—')+'</td><td style="font-size:13px;color:var(--w50);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+b.address+'</td><td>৳'+(b.amount||0)+'</td><td>'+bBadge(b.status)+'</td></tr>').join('')||'<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--w30)">No bookings</td></tr>';
+}
+
+function userCancel(id){
+  if(!confirm('Cancel this booking?'))return;
+  const bks=JSON.parse(localStorage.getItem('fin_bookings')||'[]');
+  const i=bks.findIndex(b=>b.id===id);
+  if(i!==-1){bks[i].status='Cancelled';localStorage.setItem('fin_bookings',JSON.stringify(bks));userLoadData()}
+}
+
+function userGo(nm,el){
+  document.querySelectorAll('#page-dashboard-user .dsec').forEach(s=>s.classList.remove('active'));
+  const sec=document.getElementById('u-sec-'+nm);if(sec)sec.classList.add('active');
+  document.querySelectorAll('#page-dashboard-user .sb-a').forEach(a=>a.classList.remove('on'));
+  if(el)el.classList.add('on');
+  const t={overview:'Dashboard',bookings:'My Bookings',services:'Browse Services',profile:'My Profile'};
+  document.getElementById('u-pageH').textContent=t[nm]||nm;
+}
+
+function userSavePro(){
+  const u=JSON.parse(localStorage.getItem('fin_user')||'{}');
+  u.name=document.getElementById('u-pN').value;u.email=document.getElementById('u-pE').value;
+  localStorage.setItem('fin_user',JSON.stringify(u));updateNav();alert('✅ Profile saved!');
+}
+
+// ═══════════════════════════════════════════════
+//  PROVIDER DASHBOARD
+// ═══════════════════════════════════════════════
+const provReqs=[
+  {id:'R01',svc:'AC Repair',cust:'Karim Ahmed',area:'Mirpur-10',time:'Today 2–4 PM',amt:'৳800'},
+  {id:'R02',svc:'AC Servicing',cust:'Rina Parvin',area:'Dhanmondi',time:'Tomorrow 10–12 AM',amt:'৳600'},
+  {id:'R03',svc:'AC Installation',cust:'Jamal Hossain',area:'Gulshan',time:'Jan 20, 9–11 AM',amt:'৳1,200'},
+];
+const provJobs=[
+  {id:'BK001',svc:'AC Repair',cust:'Karim Ahmed',date:'Jan 10',amt:'৳800',st:'Completed'},
+  {id:'BK002',svc:'AC Servicing',cust:'Rina Parvin',date:'Jan 12',amt:'৳600',st:'Completed'},
+  {id:'BK003',svc:'AC Repair',cust:'Jamal Hossain',date:'Jan 15',amt:'৳800',st:'In Progress'},
+];
+const provDays=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const provAvail={Monday:true,Tuesday:true,Wednesday:true,Thursday:true,Friday:true,Saturday:false,Sunday:false};
+
+function provReqCard(r){
+  return '<div class="req-card" id="prc-'+r.id+'"><div class="req-info"><div class="req-svc">'+r.svc+' — <span style="color:var(--lime)">'+r.amt+'</span></div><div class="req-meta">👤 '+r.cust+' · 📍 '+r.area+' · 🕐 '+r.time+'</div></div><div style="display:flex;gap:8px;flex-shrink:0"><button class="rbtn rbtn-g" onclick="provAccept(\''+r.id+'\',this)">✓ Accept</button><button class="rbtn rbtn-r" onclick="document.getElementById(\'prc-'+r.id+'\').remove()">✗ Decline</button></div></div>';
+}
+function provAccept(id,btn){btn.textContent='✅ Accepted';btn.disabled=true;btn.style.opacity='.7';btn.nextElementSibling.remove()}
+
+function initProvDash(){
+  const rl=document.getElementById('prov-reqList');
+  const ar=document.getElementById('prov-allReqs');
+  if(rl) rl.innerHTML=provReqs.map(r=>provReqCard(r)).join('');
+  if(ar) ar.innerHTML=provReqs.map(r=>provReqCard(r)).join('');
+  const jt=document.getElementById('prov-jobsT');
+  if(jt) jt.innerHTML=provJobs.map(j=>'<tr><td><code style="color:var(--lime);font-size:11px">'+j.id+'</code></td><td><b>'+j.svc+'</b></td><td>'+j.cust+'</td><td>'+j.date+'</td><td style="font-weight:700;color:var(--lime)">'+j.amt+'</td><td><span class="badge '+(j.st==='Completed'?'b-g':'b-b')+'">'+j.st+'</span></td><td>'+(j.st==='In Progress'?'<button style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#4ade80;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Sora\',sans-serif" onclick="this.closest(\'tr\').cells[5].innerHTML=\'<span class=\\\'badge b-g\\\'>Completed</span>\';this.remove()">Mark Done</button>':'—')+'</td></tr>').join('');
+  provRenderDays();
+}
+
+function provRenderDays(){
+  const dl=document.getElementById('prov-dayList');
+  if(!dl)return;
+  dl.innerHTML=provDays.map(d=>'<div class="day-row"><span class="day-lbl">'+d+'</span><div style="display:flex;align-items:center;gap:10px"><span style="font-size:12px;color:var(--w30)">'+(provAvail[d]?'Working':'Day Off')+'</span><button class="toggle '+(provAvail[d]?'on':'off')+'" onclick="provAvail[\''+d+'\']=!provAvail[\''+d+'\'];provRenderDays()"></button></div></div>').join('');
+}
+
+let provIsAvail=true;
+function provToggleStatus(){
+  provIsAvail=!provIsAvail;
+  const btn=document.getElementById('prov-statusBtn');
+  if(provIsAvail){btn.textContent='🟢 Available';btn.style.background='rgba(34,197,94,.1)';btn.style.borderColor='rgba(34,197,94,.3)';btn.style.color='#4ade80'}
+  else{btn.textContent='🔴 Offline';btn.style.background='rgba(239,68,68,.1)';btn.style.borderColor='rgba(239,68,68,.3)';btn.style.color='#f87171'}
+}
+
+function provGo(nm,el){
+  document.querySelectorAll('#page-dashboard-provider .dsec').forEach(s=>s.classList.remove('active'));
+  const sec=document.getElementById('prov-sec-'+nm);if(sec)sec.classList.add('active');
+  document.querySelectorAll('#page-dashboard-provider .sb-a').forEach(a=>a.classList.remove('on'));
+  if(el)el.classList.add('on');
+  const t={overview:'Provider Overview',requests:'New Requests',jobs:'My Jobs',earnings:'Earnings',availability:'Availability',profile:'Profile'};
+  document.getElementById('prov-pageH').textContent=t[nm]||nm;
+  if(nm==='availability')provRenderDays();
+}
+
+// ═══════════════════════════════════════════════
+//  ADMIN DASHBOARD
+// ═══════════════════════════════════════════════
+const adminBks=[
+  {id:'BK1001',svc:'AC Repair',user:'Karim Ahmed',prov:'Sohel Mahmud',date:'Jan 15',amt:'৳800',status:'Completed'},
+  {id:'BK1002',svc:'Electrician',user:'Fatema Begum',prov:'Rafiq Khan',date:'Jan 15',amt:'৳600',status:'In Progress'},
+  {id:'BK1003',svc:'Plumber',user:'Omar Faruk',prov:'Unassigned',date:'Jan 15',amt:'৳500',status:'Pending'},
+  {id:'BK1004',svc:'Mechanic',user:'Rina Parvin',prov:'Touhid Hasan',date:'Jan 14',amt:'৳700',status:'Completed'},
+  {id:'BK1005',svc:'Painter',user:'Jamal Hossain',prov:'Nadia Akter',date:'Jan 14',amt:'৳1,200',status:'Cancelled'},
+];
+const adminRevData=[
+  {n:'AC Repair',v:'৳27,600',p:88},{n:'Electrician',v:'৳24,720',p:79},{n:'Plumber',v:'৳14,400',p:46},
+  {n:'Mechanic',v:'৳13,860',p:44},{n:'Carpenter',v:'৳12,060',p:38},{n:'Painter',v:'৳10,440',p:33},
+];
+const adminSvcs=[
+  {ico:'🌬️',n:'AC Repair',price:'৳800',provs:12,bks:345,rev:'৳27,600',on:true},
+  {ico:'⚡',n:'Electrician',price:'৳600',provs:18,bks:412,rev:'৳24,720',on:true},
+  {ico:'🚿',n:'Plumber',price:'৳500',provs:15,bks:289,rev:'৳14,400',on:true},
+  {ico:'🔧',n:'Mechanic',price:'৳700',provs:8,bks:198,rev:'৳13,860',on:true},
+  {ico:'🪚',n:'Carpenter',price:'৳900',provs:6,bks:134,rev:'৳12,060',on:true},
+  {ico:'🎨',n:'Painter',price:'৳1,200',provs:4,bks:87,rev:'৳10,440',on:false},
+];
+const adminPending=[
+  {n:'Raju Mia',sp:'Carpenter',area:'Keraniganj',exp:'6 years',date:'Jan 14'},
+  {n:'Selim Reza',sp:'Electrician',area:'Narayanganj',exp:'4 years',date:'Jan 15'},
+  {n:'Mitu Das',sp:'Plumber',area:'Savar',exp:'3 years',date:'Jan 15'},
+];
+
+function adminRenderBk(data,id,full=false){
+  const el=document.getElementById(id);if(!el)return;
+  el.innerHTML=data.map(b=>'<tr><td><code style="color:var(--lime);font-size:11px">'+b.id+'</code></td><td><b>'+b.svc+'</b></td><td>'+b.user+'</td>'+(full?'<td style="color:var(--w30)">'+b.prov+'</td><td>'+b.date+'</td>':'')+'<td style="font-weight:700">'+b.amt+'</td><td>'+bBadge(b.status)+'</td><td><select class="ssel" onchange="adminUpdateSt(this)">'+['Pending','In Progress','Completed','Cancelled'].map(s=>'<option'+(s===b.status?' selected':'')+'>'+s+'</option>').join('')+'</select></td></tr>').join('');
+}
+function adminUpdateSt(sel){const td=sel.closest('td');td.previousElementSibling.innerHTML=bBadge(sel.value)}
+function adminFilterBk(s){adminRenderBk(s==='all'?adminBks:adminBks.filter(b=>b.status===s),'admin-tBk')}
+function adminSearchBk(q){adminRenderBk(adminBks.filter(b=>b.id.toLowerCase().includes(q.toLowerCase())||b.user.toLowerCase().includes(q.toLowerCase())),'admin-tAllBk',true)}
+
+function adminRenderRev(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.innerHTML=adminRevData.map(d=>'<div class="rb-row"><div class="rb-name">'+d.n+'</div><div class="rb-track"><div class="rb-fill" style="width:'+d.p+'%"></div></div><div class="rb-val">'+d.v+'</div></div>').join('');
+}
+
+function adminRenderPend(){
+  const el=document.getElementById('admin-tPend');if(!el)return;
+  el.innerHTML=adminPending.map((p,i)=>'<tr><td><b>'+p.n+'</b></td><td>'+p.sp+'</td><td>'+p.area+'</td><td>'+p.exp+'</td><td>'+p.date+'</td><td><button class="tact tact-g" onclick="adminAppv('+i+')">✓ Approve</button><button class="tact tact-r" onclick="adminRej('+i+')">✗ Reject</button></td></tr>').join('');
+}
+function adminAppv(i){const rows=document.getElementById('admin-tPend').rows;if(rows[i])rows[i].cells[5].innerHTML='<span class="badge b-g">Approved ✓</span>'}
+function adminRej(i){const rows=document.getElementById('admin-tPend').rows;if(rows[i])rows[i].cells[5].innerHTML='<span class="badge b-r">Rejected</span>'}
+
+function adminRenderSvcs(){
+  const el=document.getElementById('admin-tSvc');if(!el)return;
+  el.innerHTML=adminSvcs.map((s,i)=>'<tr><td><span style="font-size:18px;margin-right:8px">'+s.ico+'</span><b>'+s.n+'</b></td><td>'+s.price+'</td><td>'+s.provs+'</td><td>'+s.bks+'</td><td style="color:var(--lime);font-weight:700">'+s.rev+'</td><td>'+(s.on?'<span class="badge b-g">Active</span>':'<span class="badge b-x">Inactive</span>')+'</td><td><button class="tact '+(s.on?'tact-r':'')+'" onclick="adminSvcs['+i+'].on=!adminSvcs['+i+'].on;adminRenderSvcs()">'+(s.on?'Disable':'Enable')+'</button></td></tr>').join('');
+}
+
+function initAdminDash(){
+  adminRenderBk(adminBks,'admin-tBk');
+  adminRenderBk(adminBks,'admin-tAllBk',true);
+  adminRenderRev('admin-revChart');
+  adminRenderRev('admin-revChart2');
+  adminRenderPend();
+  adminRenderSvcs();
+}
+
+function adminGo(nm,el){
+  document.querySelectorAll('#page-dashboard-admin .dsec').forEach(s=>s.classList.remove('active'));
+  const sec=document.getElementById('admin-sec-'+nm);if(sec)sec.classList.add('active');
+  document.querySelectorAll('#page-dashboard-admin .sb-a').forEach(a=>a.classList.remove('on'));
+  if(el)el.classList.add('on');
+  const t={overview:'Admin Overview',bookings:'All Bookings',users:'Users',providers:'Providers',services:'Services',finance:'Finance',settings:'Settings'};
+  document.getElementById('admin-pageH').textContent=t[nm]||nm;
+}
+
+// ═══════════════════════════════════════════════
+//  NAV SCROLL & REVEAL (home page)
+// ═══════════════════════════════════════════════
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('nav');
+  if(nav) nav.classList.toggle('solid',scrollY>40);
+},{passive:true});
+
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');obs.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*.1+'s';obs.observe(el)});
+
+// Init
+updateNav();
+</script>
+</body>
+</html>
