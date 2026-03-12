@@ -81,7 +81,7 @@ The workflow in `.github/workflows/docker-publish.yml` automatically:
 
 | Secret name          | Value                        |
 |----------------------|------------------------------|
-| DOCKERHUB_USERNAME   | Your Docker Hub username     |
+| DOCKERHUB_USERNAME   | Docker Hub username          |
 | DOCKERHUB_TOKEN      | The access token from step 1 |
 
 #### 3. Push to GitHub
@@ -119,7 +119,8 @@ git push to main
 [ Job 3: verify ]    docker pull + run
 (health check)       curl http://localhost:3000
 ```
-
+docker run -p 3000:3000 touhid552/fixitnow:latest
+open http://localhost:3000 and app runs
 ---
 
 ## Demo Logins
