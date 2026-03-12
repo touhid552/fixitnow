@@ -53,8 +53,10 @@ docker run -p 3000:3000 fixitnow
 
 ### Option C — Pull from Docker Hub
 ```bash
-docker pull YOUR_DOCKERHUB_USERNAME/fixitnow:latest
-docker run -p 3000:3000 YOUR_DOCKERHUB_USERNAME/fixitnow:latest
+docker pull touhid552/fixitnow:latest
+
+docker run -p 3000:3000 touhid552/fixitnow:latest
+open http://localhost:3000 and app runs
 ```
 
 ---
@@ -90,7 +92,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/fixitnow.git
+git remote add origin https://github.com/touhid 552/fixitnow.git
 git push -u origin main
 ```
 
@@ -119,8 +121,6 @@ git push to main
 [ Job 3: verify ]    docker pull + run
 (health check)       curl http://localhost:3000
 ```
-docker run -p 3000:3000 touhid552/fixitnow:latest
-open http://localhost:3000 and app runs
 ---
 
 ## Demo Logins
