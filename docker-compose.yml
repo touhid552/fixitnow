@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   app1:
-    image: YOUR_DOCKERHUB_USERNAME/fixitnow:latest
+    image: touhid552/fixitnow:latest
     container_name: fixitnow_app1
     expose:
       - "3000"
@@ -30,7 +30,7 @@ services:
     restart: unless-stopped
 
   app2:
-    image: YOUR_DOCKERHUB_USERNAME/fixitnow:latest
+    image: touhid552/fixitnow:latest
     container_name: fixitnow_app2
     expose:
       - "3000"
@@ -42,7 +42,7 @@ services:
     restart: unless-stopped
 
   app3:
-    image: YOUR_DOCKERHUB_USERNAME/fixitnow:latest
+    image: touhid552/fixitnow:latest
     container_name: fixitnow_app3
     expose:
       - "3000"
